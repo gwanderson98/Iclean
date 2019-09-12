@@ -1,7 +1,5 @@
 package com.example.Iclean.entities.enums;
 
-import com.example.demo.entities.enums;
-
 public enum StatusOrdemServico {
 	
 	ABERTA(1),
