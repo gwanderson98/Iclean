@@ -16,6 +16,8 @@ public class OrdemServico implements Serializable{
 	private Integer id;
 	private Date dataInclusao;
 	private StatusOrdemServico status;
+	private int avaliacaoCliente;
+	private int avaliacaoPrestador;
 	
 	public OrdemServico() {
 		
@@ -50,6 +52,22 @@ public class OrdemServico implements Serializable{
 
 	public void setStatus(StatusOrdemServico status) {
 		this.status = status;
+	}
+
+	public int getAvaliacaoCliente() {
+		return avaliacaoCliente;
+	}
+
+	public void setAvaliacaoCliente(int avaliacaoCliente) {
+		this.avaliacaoCliente = avaliacaoCliente;
+	}
+
+	public int getAvaliacaoPrestador() {
+		return avaliacaoPrestador;
+	}
+
+	public void setAvaliacaoPrestador(int avaliacaoPrestador) {
+		this.avaliacaoPrestador = avaliacaoPrestador;
 	}
 
 	@Override
