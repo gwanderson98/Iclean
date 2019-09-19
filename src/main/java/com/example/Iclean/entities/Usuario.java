@@ -10,7 +10,7 @@ import javax.persistence.Table;
 public class Usuario implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	private Integer id;
+	private Long id;
 	private String nome;
 	private String cpf;
 	private String senha;
@@ -20,7 +20,7 @@ public class Usuario implements Serializable{
 		
 	}
 
-	public Usuario(Integer id, String nome, String cpf, String senha, String email) {
+	public Usuario(Long id, String nome, String cpf, String senha, String email) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -29,11 +29,11 @@ public class Usuario implements Serializable{
 		this.email = email;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
