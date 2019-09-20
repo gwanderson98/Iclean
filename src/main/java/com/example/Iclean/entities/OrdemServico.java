@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.example.Iclean.entities.enums.StatusOrdemServico;
@@ -13,7 +16,9 @@ import com.example.Iclean.entities.enums.StatusOrdemServico;
 public class OrdemServico implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private Integer id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
 	private Date dataInclusao;
 	private StatusOrdemServico status;
 	private int avaliacaoCliente;
@@ -23,18 +28,18 @@ public class OrdemServico implements Serializable{
 		
 	}
 
-	public OrdemServico(Integer id, Date dataInclusao, StatusOrdemServico status) {
+	public OrdemServico(Long id, Date dataInclusao, StatusOrdemServico status) {
 		super();
 		this.id = id;
 		this.dataInclusao = dataInclusao;
 		this.status = status;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

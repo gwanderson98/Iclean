@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Iclean.dto.UsuarioDTO;
 import com.example.Iclean.entities.Usuario;
@@ -48,19 +49,21 @@ public class UsuarioService {
 		}
 	}
 	
-	public Usuario update(Long id, Usuario obj) {
+	@Transactional
+	public UsuarioDTO update(Long id, UsuarioDTO dto) {
 		try {
 			Usuario entity = repository.getOne(id);
-			updateData(entity, obj);
-			return repository.save(entity);
+			updateData(entity, dto);
+			entity = repository.save(entity);
+			return new UsuarioDTO(entity);
 		} catch(EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 	}
 
-	private void updateData(Usuario entity, Usuario obj) {
-		entity.setNome(obj.getNome());
-		entity.setCpf(obj.getCpf());
-		entity.setEmail(obj.getEmail());
+	private void updateData(Usuario entity, UsuarioDTO dto) {
+		entity.setNome(dto.getNome());
+		entity.setCpf(dto.getCpf());
+		entity.setEmail(dto.getEmail());
 	}
 }

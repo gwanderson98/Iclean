@@ -3,6 +3,9 @@ package com.example.Iclean.entities;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -10,16 +13,18 @@ import javax.persistence.Table;
 public class Anuncio implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private Integer id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
 	private String titulo;
 	private String descricao;
-	private Float preco;
+	private Double preco;
 	
 	public Anuncio () {
 		
 	}
 	
-	public Anuncio(Integer id, String titulo, String descricao, Float preco) {
+	public Anuncio(Long id, String titulo, String descricao, Double preco) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
@@ -27,10 +32,10 @@ public class Anuncio implements Serializable{
 		this.preco = preco;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getTitulo() {
@@ -45,10 +50,10 @@ public class Anuncio implements Serializable{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Float getPreco() {
+	public Double getPreco() {
 		return preco;
 	}
-	public void setPreco(Float preco) {
+	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
 	@Override
