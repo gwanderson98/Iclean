@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,7 +22,11 @@ public class Anuncio implements Serializable{
 	private String descricao;
 	private Double preco;
 	
-	public Anuncio () {
+	@ManyToOne
+	@JoinColumn(name = "prestador_id")
+	private Usuario prestador = new Usuario();
+	
+	public Anuncio () { 
 		
 	}
 	

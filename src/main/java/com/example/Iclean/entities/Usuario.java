@@ -1,12 +1,18 @@
 package com.example.Iclean.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -20,6 +26,22 @@ public class Usuario implements Serializable{
 	private String cpf;
 	private String senha;
 	private String email;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "usuario")
+	private List<Endereco> enderecos = new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "prestador")
+	private List<Anuncio> anuncios = new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "cliente")
+	private List<OrdemServico> OrdemServicos = new ArrayList<>();
+	
+	@JsonIgnore
+	@ManyToMany
+	private List<Especialidade> especialidades = new ArrayList<>();
 	
 	public Usuario() {
 		
