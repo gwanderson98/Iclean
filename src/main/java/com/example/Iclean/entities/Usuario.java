@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -29,8 +30,21 @@ public class Usuario implements Serializable{
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "endereco")
-	private List<Endereco> enderecos = new ArrayList<>();
+	private List<Endereco> enderecos = new ArrayList<>();	
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "prestador")
+	private List<Anuncio> anuncios = new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "cliente")
+	private List<OrdemServico> OrdemServicos = new ArrayList<>();
+	
+	@JsonIgnore
+	@ManyToMany
+	private List<Especialidade> especialidades = new ArrayList<>();
+	
+
 	public Usuario() {
 		
 	}
