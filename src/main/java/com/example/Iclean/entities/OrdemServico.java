@@ -30,6 +30,14 @@ public class OrdemServico implements Serializable{
 	@JoinColumn(name = "cliente_id")
 	private Usuario cliente = new Usuario();
 	
+	@ManyToOne
+	@JoinColumn(name = "endereco_id")
+	private Endereco endereco = new Endereco();
+	
+	@ManyToOne
+	@JoinColumn(name = "anuncio_id")
+	private Anuncio anuncio = new Anuncio();
+	
 	public OrdemServico() {
 		
 	}
