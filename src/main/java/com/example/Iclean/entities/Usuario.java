@@ -29,7 +29,7 @@ public class Usuario implements Serializable{
 	
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "endereco")
+	@OneToMany(mappedBy = "usuario")
 	private List<Endereco> enderecos = new ArrayList<>();	
 	
 	@JsonIgnore
