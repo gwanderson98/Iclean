@@ -2,7 +2,9 @@ package com.example.Iclean.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,18 +31,18 @@ public class Usuario implements Serializable{
 	
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "usuario")
-	private List<Endereco> enderecos = new ArrayList<>();	
+	@OneToMany(mappedBy = "usuario")	
+	private Set<Endereco> enderecos = new HashSet<>();	
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(mappedBy = "prestador")
 	private List<Anuncio> anuncios = new ArrayList<>();
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<OrdemServico> OrdemServicos = new ArrayList<>();
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToMany
 	private List<Especialidade> especialidades = new ArrayList<>();
 	
@@ -55,7 +57,7 @@ public class Usuario implements Serializable{
 		this.nome = nome;
 		this.cpf = cpf;
 		this.senha = senha;
-		this.email = email;
+		this.email = email;		
 	}
 
 	public Long getId() {
@@ -96,6 +98,10 @@ public class Usuario implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Set<Endereco> getEnderecos() {
+		return enderecos;
 	}
 
 	@Override

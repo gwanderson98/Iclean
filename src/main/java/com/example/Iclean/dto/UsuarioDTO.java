@@ -2,13 +2,9 @@ package com.example.Iclean.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.OneToMany;
 
 import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.entities.Usuario;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 public class UsuarioDTO implements Serializable{
@@ -18,6 +14,7 @@ public class UsuarioDTO implements Serializable{
 	private String nome;
 	private String cpf;
 	private String email;
+	private ArrayList<Endereco> endereco;
 	
 	
 	public UsuarioDTO() {
