@@ -15,13 +15,14 @@ public class EnderecoDTO implements Serializable {
 	private String cidade;
 	private String estado;
 	private String cep;
+	private Usuario usuario; 
 
 	public EnderecoDTO() {
 
 	}
 
 	public EnderecoDTO(Long id, String logradouro, Integer numero, String complemento, String cidade, String estado,
-			String cep) {
+			String cep, Usuario usuario) {
 		super();
 		this.id = id;
 		this.logradouro = logradouro;
@@ -29,7 +30,8 @@ public class EnderecoDTO implements Serializable {
 		this.complemento = complemento;
 		this.cidade = cidade;
 		this.estado = estado;
-		this.cep = cep;		
+		this.cep = cep;
+		this.usuario = usuario;
 	}
 
 	public EnderecoDTO(Endereco entity) {
@@ -40,6 +42,7 @@ public class EnderecoDTO implements Serializable {
 		this.cidade = entity.getCidade();
 		this.estado = entity.getEstado();
 		this.cep = entity.getCep();
+		this.usuario = entity.getUsuario();
 	}
 
 	public Long getId() {
@@ -99,6 +102,6 @@ public class EnderecoDTO implements Serializable {
 	}
 
 	public Endereco toEntity() {
-		return new Endereco(id, logradouro, numero, complemento, cidade, estado, cep);
+		return new Endereco(id, logradouro, numero, complemento, cidade, estado, cep, usuario);
 	}
 }

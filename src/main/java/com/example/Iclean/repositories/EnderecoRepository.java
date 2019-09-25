@@ -7,5 +7,7 @@ import com.example.Iclean.entities.Endereco;
 
 @Repository
 public interface EnderecoRepository extends JpaRepository<Endereco, Long>{
+	
+	
 
 }

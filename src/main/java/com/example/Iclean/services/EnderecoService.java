@@ -15,30 +15,32 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.Iclean.dto.EnderecoDTO;
 import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.repositories.EnderecoRepository;
+import com.example.Iclean.repositories.UsuarioRepository;
 import com.example.Iclean.services.exceptions.DatabaseException;
 import com.example.Iclean.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class EnderecoService {
-	
+
 	@Autowired
 	private EnderecoRepository repository;
+	
 
-	public List<EnderecoDTO> findAll(){
+	public List<EnderecoDTO> findAll() {
 		List<Endereco> list = repository.findAll();
 		return list.stream().map(e -> new EnderecoDTO(e)).collect(Collectors.toList());
 	}
-	
+
 	public EnderecoDTO findById(Long id) {
-		 Optional<Endereco> obj = repository.findById(id);
-		 Endereco entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
-		 return new EnderecoDTO(entity);
+		Optional<Endereco> obj = repository.findById(id);
+		Endereco entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		return new EnderecoDTO(entity);
 	}
-	
+
 	public Endereco insert(Endereco obj) {
 		return repository.save(obj);
 	}
-	
+
 	public void delete(Long id) {
 		try {
 			repository.deleteById(id);
@@ -48,7 +50,7 @@ public class EnderecoService {
 			throw new DatabaseException(e.getMessage());
 		}
 	}
-	
+
 	@Transactional
 	public EnderecoDTO update(Long id, EnderecoDTO dto) {
 		try {
@@ -56,7 +58,7 @@ public class EnderecoService {
 			updateData(entity, dto);
 			entity = repository.save(entity);
 			return new EnderecoDTO(entity);
-		} catch(EntityNotFoundException e) {
+		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 	}

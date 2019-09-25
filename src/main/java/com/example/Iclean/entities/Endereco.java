@@ -34,7 +34,7 @@ public class Endereco implements Serializable {
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario = new Usuario();
 
-	//@JsonIgnore
+	@JsonIgnore
 	@OneToMany(mappedBy = "endereco")
 	private List<OrdemServico> OrdemServicos = new ArrayList<>();
 
@@ -43,7 +43,7 @@ public class Endereco implements Serializable {
 	}
 
 	public Endereco(Long id, String logradouro, Integer numero, String complemento, String cidade, String estado, 
-			String cep) {
+			String cep,Usuario usuario) {
 		super();
 		this.id = id;
 		this.logradouro = logradouro;
@@ -51,7 +51,8 @@ public class Endereco implements Serializable {
 		this.complemento = complemento;
 		this.cidade = cidade;
 		this.estado = estado;
-		this.cep = cep;	
+		this.cep = cep;
+		this.usuario = usuario;
 	}
 
 	public Long getId() {
@@ -109,6 +110,14 @@ public class Endereco implements Serializable {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
+	
+	public Usuario getUsuario() {
+        return this.usuario;
+    }
+	
+	public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
 	@Override
 	public int hashCode() {

@@ -2,6 +2,7 @@ package com.example.Iclean.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Set;
 
 import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.entities.Usuario;
@@ -14,9 +15,8 @@ public class UsuarioDTO implements Serializable{
 	private String nome;
 	private String cpf;
 	private String email;
-	private ArrayList<Endereco> endereco;
-	
-	
+	private Set<Endereco> enderecos;
+		
 	public UsuarioDTO() {
 		
 	}
@@ -27,14 +27,13 @@ public class UsuarioDTO implements Serializable{
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
-
 	}
 	
 	public UsuarioDTO(Usuario entity) {
 		this.id = entity.getId();
 		this.nome = entity.getNome();
 		this.cpf = entity.getCpf();
-		this.email = entity.getEmail();
+		this.email = entity.getEmail();		
 	}
 	
 
@@ -68,6 +67,10 @@ public class UsuarioDTO implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Set<Endereco> getEnderecos() {
+		return enderecos;
 	}
 
 	public Usuario toEntity() {
