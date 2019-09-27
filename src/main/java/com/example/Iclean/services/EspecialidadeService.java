@@ -65,7 +65,5 @@ public class EspecialidadeService {
 	private void updateData(Especialidade entity, EspecialidadeDTO dto) {
 		entity.setId(dto.getId());
 		entity.setNome(dto.getNome());
-		entity.setUsuarios(dto.getUsuarios());
-		entity.setAnuncios(dto.getAnuncios());
 	}
 }

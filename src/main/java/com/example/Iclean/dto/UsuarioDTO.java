@@ -17,10 +17,6 @@ public class UsuarioDTO implements Serializable {
 	private String cpf;
 	private String senha;
 	private String email;
-//	private List<Endereco> enderecos;
-//	private List<Anuncio> anuncios;
-//	private List<OrdemServico> OrdemServicos;
-//	private List<Especialidade> especialidades;
 
 	public UsuarioDTO() {
 			
@@ -41,10 +37,6 @@ public class UsuarioDTO implements Serializable {
 		this.cpf = entity.getCpf();
 		this.senha = entity.getSenha();
 		this.email = entity.getEmail();
-//		this.enderecos = entity.getEnderecos();
-//		this.anuncios = entity.getAnuncios();
-//		this.OrdemServicos = entity.getOrdemServicos();
-//		this.especialidades = entity.getEspecialidades();
 	}
 
 	public Long getId() {

@@ -17,24 +17,18 @@ public class OrdemServicoDTO implements Serializable {
 	private StatusOrdemServico status;
 	private int avaliacaoCliente;
 	private int avaliacaoPrestador;
-	private Usuario cliente;
-	private Endereco endereco;
-	private Anuncio anuncio;
 
 	public OrdemServicoDTO() {
 
 	}
 
 	public OrdemServicoDTO(Long id, Date dataInclusao, StatusOrdemServico status, int avaliacaoCliente,
-			int avaliacaoPrestador, Usuario cliente, Endereco endereco, Anuncio anuncio) {
+			int avaliacaoPrestador) {
 		this.id = id;
 		this.dataInclusao = dataInclusao;
 		this.status = status;
 		this.avaliacaoCliente = avaliacaoCliente;
 		this.avaliacaoPrestador = avaliacaoPrestador;
-		this.cliente = cliente;
-		this.endereco = endereco;
-		this.anuncio = anuncio;
 	}
 
 	public OrdemServicoDTO(OrdemServico entity) {
@@ -43,9 +37,6 @@ public class OrdemServicoDTO implements Serializable {
 		this.status = entity.getStatus();
 		this.avaliacaoCliente = entity.getAvaliacaoCliente();
 		this.avaliacaoPrestador = entity.getAvaliacaoPrestador();
-		this.cliente = entity.getCliente();
-		this.endereco = entity.getEndereco();
-		this.anuncio = entity.getAnuncio();
 	}
 
 	public Long getId() {
@@ -88,32 +79,7 @@ public class OrdemServicoDTO implements Serializable {
 		this.avaliacaoPrestador = avaliacaoPrestador;
 	}
 
-	public Usuario getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Usuario cliente) {
-		this.cliente = cliente;
-	}
-
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-
-	public Anuncio getAnuncio() {
-		return anuncio;
-	}
-
-	public void setAnuncio(Anuncio anuncio) {
-		this.anuncio = anuncio;
-	}
-
 	public OrdemServico toEntity() {
-		return new OrdemServico(id, dataInclusao, status, avaliacaoCliente, avaliacaoPrestador, cliente, endereco,
-				anuncio);
+		return new OrdemServico(id, dataInclusao, status, avaliacaoCliente, avaliacaoPrestador);
 	}
 }

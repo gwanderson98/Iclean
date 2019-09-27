@@ -3,7 +3,6 @@ package com.example.Iclean.dto;
 import java.io.Serializable;
 
 import com.example.Iclean.entities.Endereco;
-import com.example.Iclean.entities.Usuario;
 
 public class EnderecoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -15,15 +14,13 @@ public class EnderecoDTO implements Serializable {
 	private String cidade;
 	private String estado;
 	private String cep;
-	private Usuario usuario;
-	// private List<OrdemServico> ordemServicos;
 
 	public EnderecoDTO() {
 
 	}
 
 	public EnderecoDTO(Long id, String logradouro, Integer numero, String complemento, String cidade, String estado,
-			String cep, Usuario usuario) {
+			String cep) {
 		this.id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;
@@ -31,7 +28,6 @@ public class EnderecoDTO implements Serializable {
 		this.cidade = cidade;
 		this.estado = estado;
 		this.cep = cep;
-		this.usuario = usuario;
 	}
 
 	public EnderecoDTO(Endereco entity) {
@@ -42,8 +38,6 @@ public class EnderecoDTO implements Serializable {
 		this.cidade = entity.getCidade();
 		this.estado = entity.getEstado();
 		this.cep = entity.getCep();
-		this.usuario = entity.getUsuario();
-		// this.ordemServicos = entity.getOrdemServicos();
 	}
 
 	
@@ -103,15 +97,7 @@ public class EnderecoDTO implements Serializable {
 		this.cep = cep;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
 	public Endereco toEntity() {
-		return new Endereco(id, logradouro, numero, complemento, cidade, estado, cep, usuario);
+		return new Endereco(id, logradouro, numero, complemento, cidade, estado, cep);
 	}
 }

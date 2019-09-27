@@ -1,14 +1,16 @@
 package com.example.Iclean.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,20 +31,20 @@ public class Endereco implements Serializable {
 	private String cep;
 
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario = new Usuario();
 
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "endereco", fetch = FetchType.LAZY)
-//	private List<OrdemServico> OrdemServicos = new ArrayList<>();
+	@JsonIgnore
+	@OneToMany(mappedBy = "endereco")
+	private List<OrdemServico> OrdemServicos = new ArrayList<>();
 
 	public Endereco() {
 		
 	}
 	
 	public Endereco(Long id, String logradouro, Integer numero, String complemento, String cidade, String estado,
-			String cep, Usuario usuario) {
+			String cep) {
 		this.id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;
@@ -50,7 +52,6 @@ public class Endereco implements Serializable {
 		this.cidade = cidade;
 		this.estado = estado;
 		this.cep = cep;
-		this.usuario = usuario;
 	}
 	
 	public Endereco(Endereco entity) {
@@ -61,7 +62,6 @@ public class Endereco implements Serializable {
 		this.cidade = entity.getCidade();
 		this.estado = entity.getEstado();
 		this.cep = entity.getCep();
-		this.usuario = entity.getUsuario();
 	}
 
 	public Long getId() {

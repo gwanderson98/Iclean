@@ -27,15 +27,15 @@ public class OrdemServico implements Serializable {
 	private int avaliacaoCliente;
 	private int avaliacaoPrestador;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Usuario cliente = new Usuario();
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco = new Endereco();
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "anuncio_id")
 	private Anuncio anuncio = new Anuncio();
 
@@ -44,16 +44,13 @@ public class OrdemServico implements Serializable {
 	}
 	
 	public OrdemServico(Long id, Date dataInclusao, StatusOrdemServico status, int avaliacaoCliente,
-			int avaliacaoPrestador, Usuario cliente, Endereco endereco, Anuncio anuncio) {
+			int avaliacaoPrestador) {
 		super();
 		this.id = id;
 		this.dataInclusao = dataInclusao;
 		this.status = status;
 		this.avaliacaoCliente = avaliacaoCliente;
 		this.avaliacaoPrestador = avaliacaoPrestador;
-		this.cliente = cliente;
-		this.endereco = endereco;
-		this.anuncio = anuncio;
 	}
 
 

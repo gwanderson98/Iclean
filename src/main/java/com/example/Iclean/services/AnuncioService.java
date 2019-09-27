@@ -75,8 +75,5 @@ public class AnuncioService {
 		entity.setTitulo(dto.getTitulo());
 		entity.setDescricao(dto.getDescricao());
 		entity.setPreco(dto.getPreco());
-		entity.setPrestador(dto.getPrestador());
-		entity.setOrdemServicos(dto.getOrdemServicos());
-		entity.setEspecialidade(dto.getEspecialidade());
 	}
 }

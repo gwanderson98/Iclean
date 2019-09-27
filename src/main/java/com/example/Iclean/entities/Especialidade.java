@@ -26,29 +26,26 @@ public class Especialidade implements Serializable{
 	private Long id;
 	private String nome;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@JsonIgnore
+	@ManyToMany(mappedBy = "especialidades")
 	private List<Usuario> usuarios = new ArrayList<>();
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "especialidade", fetch = FetchType.LAZY)
+	@OneToMany
 	private List<Anuncio> anuncios = new ArrayList<>();
 	
 	public Especialidade() {
 		
 	}
 
-	public Especialidade(Long id, String nome, List<Usuario> usuarios, List<Anuncio> anuncios) {
+	public Especialidade(Long id, String nome) {
 		this.id = id;
 		this.nome = nome;
-		this.usuarios = usuarios;
-		this.anuncios = anuncios;
 	}
 	
 	public Especialidade(Especialidade entity) {
 		this.id = entity.getId();
 		this.nome = entity.getNome();
-		this.usuarios = entity.getUsuarios();
-		this.anuncios = entity.getAnuncios();
 	}
 
 	public Long getId() {

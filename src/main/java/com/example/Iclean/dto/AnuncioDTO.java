@@ -1,12 +1,8 @@
-package com.example.Iclean.dto;
+	package com.example.Iclean.dto;
 
 import java.io.Serializable;
-import java.util.List;
 
 import com.example.Iclean.entities.Anuncio;
-import com.example.Iclean.entities.Especialidade;
-import com.example.Iclean.entities.OrdemServico;
-import com.example.Iclean.entities.Usuario;
 
 
 public class AnuncioDTO implements Serializable{
@@ -16,23 +12,16 @@ public class AnuncioDTO implements Serializable{
 	private String titulo;
 	private String descricao;
 	private Double preco;
-	private Usuario prestador;
-	private List<OrdemServico> ordemServicos;
-	private Especialidade especialidade;
 		
 	public AnuncioDTO() {
 		
 	}
 		
-	public AnuncioDTO(Long id, String titulo, String descricao, Double preco, Usuario prestador,
-			List<OrdemServico> ordemServicos, Especialidade especialidade) {		
+	public AnuncioDTO(Long id, String titulo, String descricao, Double preco) {		
 		this.id = id;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.preco = preco;
-		this.prestador = prestador;
-		this.ordemServicos = ordemServicos;
-		this.especialidade = especialidade;
 	}
 
 	
@@ -41,12 +30,7 @@ public class AnuncioDTO implements Serializable{
 		this.titulo = entity.getTitulo();
 		this.descricao = entity.getDescricao();
 		this.preco = entity.getPreco();	
-		this.prestador = entity.getPrestador();
-		this.ordemServicos = entity.getOrdemServicos();
-		this.especialidade = entity.getEspecialidade();
 	}
-	
-	
 
 	public Long getId() {
 		return id;
@@ -80,31 +64,7 @@ public class AnuncioDTO implements Serializable{
 		this.preco = preco;
 	}
 
-	public Usuario getPrestador() {
-		return prestador;
-	}
-
-	public void setPrestador(Usuario prestador) {
-		this.prestador = prestador;
-	}
-
-	public List<OrdemServico> getOrdemServicos() {
-		return ordemServicos;
-	}
-
-	public void setOrdemServicos(List<OrdemServico> ordemServicos) {
-		this.ordemServicos = ordemServicos;
-	}
-
-	public Especialidade getEspecialidade() {
-		return especialidade;
-	}
-
-	public void setEspecialidade(Especialidade especialidade) {
-		this.especialidade = especialidade;
-	}
-
 	public Anuncio toEntity() {
-		return new Anuncio(id, titulo, descricao, preco,prestador,ordemServicos,especialidade);
+		return new Anuncio(id, titulo, descricao, preco);
 	}
 }

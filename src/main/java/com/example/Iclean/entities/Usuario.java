@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -33,17 +33,17 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy = "usuario")
 	private List<Endereco> enderecos = new ArrayList<>();
 
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "prestador", fetch = FetchType.LAZY)
-//	private List<Anuncio> anuncios = new ArrayList<>();
-//
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
-//	private List<OrdemServico> ordemServicos = new ArrayList<>();
-//
-//	@JsonIgnore
-//	@ManyToMany(fetch = FetchType.LAZY)
-//	private List<Especialidade> especialidades = new ArrayList<>();
+	@JsonIgnore
+	@OneToMany(mappedBy = "prestador")
+	private List<Anuncio> anuncios = new ArrayList<>();
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "cliente")
+	private List<OrdemServico> ordemServicos = new ArrayList<>();
+
+	@JsonIgnore
+	@ManyToMany
+	private List<Especialidade> especialidades = new ArrayList<>();
 	
 	public Usuario() {
 		
@@ -54,6 +54,7 @@ public class Usuario implements Serializable {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.senha = senha;
+		this.senha = senha;
 		this.email = email;
 	}
 	
@@ -63,7 +64,6 @@ public class Usuario implements Serializable {
 		this.cpf = entity.getCpf();
 		this.senha = entity.getSenha();
 		this.email = entity.getEmail();
-		this.enderecos = entity.getEnderecos();
 	}
 	
 

@@ -66,8 +66,5 @@ public class OrdemServicoService {
 		entity.setId(dto. getId());
 		entity.setDataInclusao(dto.getDataInclusao());
 		entity.setStatus(dto.getStatus());
-		entity.setCliente(dto.getCliente());
-		entity.setEndereco(dto.getEndereco());
-		entity.setAnuncio(dto.getAnuncio());
 	}
 }
