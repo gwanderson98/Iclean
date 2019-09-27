@@ -2,7 +2,6 @@ package com.example.Iclean.services;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
@@ -14,10 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Iclean.dto.UsuarioDTO;
-import com.example.Iclean.entities.Anuncio;
-import com.example.Iclean.entities.Endereco;
-import com.example.Iclean.entities.Especialidade;
-import com.example.Iclean.entities.OrdemServico;
 import com.example.Iclean.entities.Usuario;
 import com.example.Iclean.repositories.UsuarioRepository;
 import com.example.Iclean.services.exceptions.DatabaseException;
