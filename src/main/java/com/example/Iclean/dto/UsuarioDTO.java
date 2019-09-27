@@ -9,18 +9,9 @@ import com.example.Iclean.entities.Especialidade;
 import com.example.Iclean.entities.OrdemServico;
 import com.example.Iclean.entities.Usuario;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class UsuarioDTO implements Serializable{
+public class UsuarioDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long id;
 	private String nome;
 	private String cpf;
@@ -30,7 +21,21 @@ public class UsuarioDTO implements Serializable{
 	private List<Anuncio> anuncios;
 	private List<OrdemServico> OrdemServicos;
 	private List<Especialidade> especialidades;
+
+	public UsuarioDTO() {
+			
+	}
 	
+	public UsuarioDTO(Long id, String nome, String cpf, String senha, String email, List<Endereco> enderecos) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.senha = senha;
+		this.email = email;
+		this.enderecos = enderecos;
+	}
+
 	public UsuarioDTO(Usuario entity) {
 		this.id = entity.getId();
 		this.nome = entity.getNome();
@@ -43,7 +48,55 @@ public class UsuarioDTO implements Serializable{
 //		this.especialidades = entity.getEspecialidades();
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public List<Endereco> getEnderecos() {
+		return this.enderecos;
+	}
+	
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+
 	public Usuario toEntity() {
-		return new Usuario(id, nome, cpf, senha, email,enderecos);
+		return new Usuario(id, nome, cpf, senha, email, enderecos);
 	}
 }
