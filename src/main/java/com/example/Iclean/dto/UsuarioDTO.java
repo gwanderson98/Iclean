@@ -1,10 +1,7 @@
 package com.example.Iclean.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.example.Iclean.entities.Anuncio;
 import com.example.Iclean.entities.Endereco;
@@ -38,7 +35,11 @@ public class UsuarioDTO implements Serializable{
 		this.id = entity.getId();
 		this.nome = entity.getNome();
 		this.cpf = entity.getCpf();
-		this.email = entity.getEmail();		
+		this.senha = entity.getSenha();
+		this.email = entity.getEmail();
+		this.enderecos = entity.getEnderecos();
+		this.OrdemServicos = entity.getOrdemServicos();
+		this.especialidades = entity.getEspecialidades();
 	}
 
 	public Usuario toEntity() {

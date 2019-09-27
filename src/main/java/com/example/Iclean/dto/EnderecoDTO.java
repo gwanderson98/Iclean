@@ -44,6 +44,7 @@ public class EnderecoDTO implements Serializable {
 		this.estado = entity.getEstado();
 		this.cep = entity.getCep();
 		this.usuario = entity.getUsuario();
+		this.ordemServicos = entity.getOrdemServicos();
 	}
 
 	public Endereco toEntity() {

@@ -33,16 +33,15 @@ public class TestConfig implements CommandLineRunner {
 		
 		ArrayList<Endereco> listaEndereco = new ArrayList<Endereco>();
 		listaEndereco.add(e1);
-		listaEndereco.add(e2);
 		
 		Usuario u1 = new Usuario(null, "Maria Brown", "123456789", "123", "rogercomp@gmail.com",listaEndereco,null,null,null);
-		Usuario u2 = new Usuario(null, "Alex Green", "0374561566", "456", "marcobixona@gmail.com",listaEndereco,null,null,null);	
+		Usuario u2 = new Usuario(null, "Alex Green", "0374561566", "456", "marcobixona@gmail.com",listaEndereco,null,null,null);
 		
 		usuarioRepository.saveAll(Arrays.asList(u1, u2));
 		
-		e1.setUsuario(u1);
-		e2.setUsuario(u2);
-		
-		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+//		e1.setUsuario(u1);
+//		e2.setUsuario(u2);
+//		
+//		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 	}
 }
