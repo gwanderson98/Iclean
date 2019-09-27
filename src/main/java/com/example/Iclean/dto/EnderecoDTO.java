@@ -33,7 +33,7 @@ public class EnderecoDTO implements Serializable {
 	private String estado;
 	private String cep;
 	private Usuario usuario;
-	private List<OrdemServico> ordemServicos;
+	//private List<OrdemServico> ordemServicos;
 
 	public EnderecoDTO(Endereco entity) {
 		this.id = entity.getId();
@@ -44,10 +44,10 @@ public class EnderecoDTO implements Serializable {
 		this.estado = entity.getEstado();
 		this.cep = entity.getCep();
 		this.usuario = entity.getUsuario();
-		this.ordemServicos = entity.getOrdemServicos();
+		//this.ordemServicos = entity.getOrdemServicos();
 	}
 
 	public Endereco toEntity() {
-		return new Endereco(id, logradouro, numero, complemento, cidade, estado, cep, usuario, ordemServicos);
+		return new Endereco(id, logradouro, numero, complemento, cidade, estado, cep, usuario);
 	}
 }

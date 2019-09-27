@@ -72,8 +72,8 @@ public class UsuarioService {
 		entity.setCpf(dto.getCpf());
 		entity.setEmail(dto.getEmail());
 		entity.setEnderecos(dto.getEnderecos());
-		entity.setAnuncios(dto.getAnuncios());
-		entity.setOrdemServicos(dto.getOrdemServicos());
-		entity.setEspecialidades(dto.getEspecialidades());
+//		entity.setAnuncios(dto.getAnuncios());
+//		entity.setOrdemServicos(dto.getOrdemServicos());
+//		entity.setEspecialidades(dto.getEspecialidades());
 	}
 }

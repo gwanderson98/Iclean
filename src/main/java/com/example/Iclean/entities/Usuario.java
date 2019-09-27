@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,19 +40,19 @@ public class Usuario implements Serializable {
 	private String email;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario",fetch = FetchType.EAGER)
 	private List<Endereco> enderecos = new ArrayList<>();
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "prestador")
-	private List<Anuncio> anuncios = new ArrayList<>();
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "cliente")
-	private List<OrdemServico> ordemServicos = new ArrayList<>();
-
-	@JsonIgnore
-	@ManyToMany
-	private List<Especialidade> especialidades = new ArrayList<>();
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "prestador", fetch = FetchType.LAZY)
+//	private List<Anuncio> anuncios = new ArrayList<>();
+//
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+//	private List<OrdemServico> ordemServicos = new ArrayList<>();
+//
+//	@JsonIgnore
+//	@ManyToMany(fetch = FetchType.LAZY)
+//	private List<Especialidade> especialidades = new ArrayList<>();
 	
 }

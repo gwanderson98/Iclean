@@ -38,11 +38,12 @@ public class UsuarioDTO implements Serializable{
 		this.senha = entity.getSenha();
 		this.email = entity.getEmail();
 		this.enderecos = entity.getEnderecos();
-		this.OrdemServicos = entity.getOrdemServicos();
-		this.especialidades = entity.getEspecialidades();
+//		this.anuncios = entity.getAnuncios();
+//		this.OrdemServicos = entity.getOrdemServicos();
+//		this.especialidades = entity.getEspecialidades();
 	}
 
 	public Usuario toEntity() {
-		return new Usuario(id, nome, cpf, senha, email,enderecos,anuncios, OrdemServicos, especialidades);
+		return new Usuario(id, nome, cpf, senha, email,enderecos);
 	}
 }

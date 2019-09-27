@@ -70,6 +70,6 @@ public class EnderecoService {
 		entity.setEstado(dto.getEstado());
 		entity.setCep(dto.getCep());
 		entity.setUsuario(dto.getUsuario());
-		entity.setOrdemServicos(dto.getOrdemServicos());
+		//entity.setOrdemServicos(dto.getOrdemServicos());
 	}
 }
