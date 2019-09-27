@@ -2,13 +2,15 @@ package com.example.Iclean.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.example.Iclean.entities.Anuncio;
+import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.entities.Especialidade;
 import com.example.Iclean.entities.OrdemServico;
 import com.example.Iclean.entities.Usuario;
@@ -23,25 +25,21 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AnuncioDTO implements Serializable{
+public class EspecialidadeDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	private String titulo;
-	private String descricao;
-	private Double preco;
-	private Usuario prestador;
-	private List<OrdemServico> OrdemServicos;
-	private Especialidade especialidade;
+	private String nome;
+	private List<Usuario> usuarios;
+	private List<Anuncio> anuncios;
 	
-	public AnuncioDTO(Anuncio entity) {
+	public EspecialidadeDTO(Especialidade entity) {
 		this.id = entity.getId();
-		this.titulo = entity.getTitulo();
-		this.descricao = entity.getDescricao();
-		this.preco = entity.getPreco();		
+		this.nome = entity.getNome();
+		this.usuarios = entity.getUsuarios();
+		this.anuncios = entity.getAnuncios();		
 	}
-
-	public Anuncio toEntity() {
-		return new Anuncio(id, titulo, descricao, preco,prestador,OrdemServicos,especialidade);
+	public Especialidade toEntity() {
+		return new Especialidade(id, nome, usuarios, anuncios);
 	}
 }

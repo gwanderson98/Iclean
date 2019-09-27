@@ -2,32 +2,37 @@ package com.example.Iclean.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import com.example.Iclean.entities.Anuncio;
 import com.example.Iclean.entities.Endereco;
+import com.example.Iclean.entities.Especialidade;
+import com.example.Iclean.entities.OrdemServico;
 import com.example.Iclean.entities.Usuario;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UsuarioDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
 	private String nome;
 	private String cpf;
+	private String senha;
 	private String email;
-	private Set<Endereco> enderecos;
-		
-	public UsuarioDTO() {
-		
-	}
-
-	public UsuarioDTO(Long id, String nome, String cpf, String email) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.cpf = cpf;
-		this.email = email;
-	}
+	private List<Endereco> enderecos;
+	private List<Anuncio> anuncios;
+	private List<OrdemServico> OrdemServicos;
+	private List<Especialidade> especialidades;
 	
 	public UsuarioDTO(Usuario entity) {
 		this.id = entity.getId();
@@ -35,45 +40,8 @@ public class UsuarioDTO implements Serializable{
 		this.cpf = entity.getCpf();
 		this.email = entity.getEmail();		
 	}
-	
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	public Set<Endereco> getEnderecos() {
-		return enderecos;
-	}
 
 	public Usuario toEntity() {
-		return new Usuario(id, nome, cpf, null, email);
+		return new Usuario(id, nome, cpf, senha, email,enderecos,anuncios, OrdemServicos, especialidades);
 	}
 }

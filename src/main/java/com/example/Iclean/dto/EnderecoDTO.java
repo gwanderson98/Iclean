@@ -1,10 +1,27 @@
 package com.example.Iclean.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.example.Iclean.entities.Endereco;
+import com.example.Iclean.entities.OrdemServico;
 import com.example.Iclean.entities.Usuario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class EnderecoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -15,24 +32,8 @@ public class EnderecoDTO implements Serializable {
 	private String cidade;
 	private String estado;
 	private String cep;
-	private Usuario usuario; 
-
-	public EnderecoDTO() {
-
-	}
-
-	public EnderecoDTO(Long id, String logradouro, Integer numero, String complemento, String cidade, String estado,
-			String cep, Usuario usuario) {
-		super();
-		this.id = id;
-		this.logradouro = logradouro;
-		this.numero = numero;
-		this.complemento = complemento;
-		this.cidade = cidade;
-		this.estado = estado;
-		this.cep = cep;
-		this.usuario = usuario;
-	}
+	private Usuario usuario;
+	private List<OrdemServico> ordemServicos;
 
 	public EnderecoDTO(Endereco entity) {
 		this.id = entity.getId();
@@ -45,63 +46,7 @@ public class EnderecoDTO implements Serializable {
 		this.usuario = entity.getUsuario();
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getLogradouro() {
-		return logradouro;
-	}
-
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
-
-	public Integer getNumero() {
-		return numero;
-	}
-
-	public void setNumero(Integer numero) {
-		this.numero = numero;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-
 	public Endereco toEntity() {
-		return new Endereco(id, logradouro, numero, complemento, cidade, estado, cep, usuario);
+		return new Endereco(id, logradouro, numero, complemento, cidade, estado, cep, usuario, ordemServicos);
 	}
 }

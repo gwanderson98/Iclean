@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.Iclean.dto.EnderecoDTO;
 import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.repositories.EnderecoRepository;
-import com.example.Iclean.repositories.UsuarioRepository;
 import com.example.Iclean.services.exceptions.DatabaseException;
 import com.example.Iclean.services.exceptions.ResourceNotFoundException;
 
@@ -70,5 +69,7 @@ public class EnderecoService {
 		entity.setCidade(dto.getCidade());
 		entity.setEstado(dto.getEstado());
 		entity.setCep(dto.getCep());
+		entity.setUsuario(dto.getUsuario());
+		entity.setOrdemServicos(dto.getOrdemServicos());
 	}
 }

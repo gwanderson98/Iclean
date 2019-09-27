@@ -1,5 +1,6 @@
 package com.example.Iclean.config;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,26 +26,23 @@ public class TestConfig implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Usuario u1 = new Usuario(null, "Maria Brown", "123456789", "123", "rogercomp@gmail.com");
-		Usuario u2 = new Usuario(null, "Alex Green", "0374561566", "456", "marcobixona@gmail.com");	
+	    Endereco e1 = new Endereco(null,"Rua A", 100, "complemento A", "Uberlandia", "MG", "38400000", null, null);
+		Endereco e2 = new Endereco(null,"Rua B", 101, "complemento B", "Uberlandia", "MG", "38411068", null, null);		
+	
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 		
-	//	usuarioRepository.saveAll(Arrays.asList(u1, u2));	
+		ArrayList<Endereco> listaEndereco = new ArrayList<Endereco>();
+		listaEndereco.add(e1);
+		listaEndereco.add(e2);
 		
+		Usuario u1 = new Usuario(null, "Maria Brown", "123456789", "123", "rogercomp@gmail.com",listaEndereco,null,null,null);
+		Usuario u2 = new Usuario(null, "Alex Green", "0374561566", "456", "marcobixona@gmail.com",listaEndereco,null,null,null);	
 		
 		usuarioRepository.saveAll(Arrays.asList(u1, u2));
 		
-	    Endereco e1 = new Endereco(null,"Rua A", 100, "complemento A", "Uberlandia", "MG", "38400000", u1);
-		Endereco e2 = new Endereco(null,"Rua B", 101, "complemento B", "Uberlandia", "MG", "38411068", u1);		
-	    
 		e1.setUsuario(u1);
+		e2.setUsuario(u2);
 		
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
-		
-		
-		//enderecoRepository.saveAll(Arrays.asList(e1, e2));
-		
-		//u1.getEnderecos().add(e1);		
-		//u2.getEnderecos().add(e2);
-		
 	}
 }

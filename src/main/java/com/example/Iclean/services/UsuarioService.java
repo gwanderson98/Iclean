@@ -2,6 +2,7 @@ package com.example.Iclean.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
@@ -13,6 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Iclean.dto.UsuarioDTO;
+import com.example.Iclean.entities.Anuncio;
+import com.example.Iclean.entities.Endereco;
+import com.example.Iclean.entities.Especialidade;
+import com.example.Iclean.entities.OrdemServico;
 import com.example.Iclean.entities.Usuario;
 import com.example.Iclean.repositories.UsuarioRepository;
 import com.example.Iclean.services.exceptions.DatabaseException;
@@ -62,8 +67,13 @@ public class UsuarioService {
 	}
 
 	private void updateData(Usuario entity, UsuarioDTO dto) {
+		entity.setId(dto.getId());
 		entity.setNome(dto.getNome());
 		entity.setCpf(dto.getCpf());
 		entity.setEmail(dto.getEmail());
+		entity.setEnderecos(dto.getEnderecos());
+		entity.setAnuncios(dto.getAnuncios());
+		entity.setOrdemServicos(dto.getOrdemServicos());
+		entity.setEspecialidades(dto.getEspecialidades());
 	}
 }

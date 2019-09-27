@@ -2,10 +2,7 @@ package com.example.Iclean.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,10 +22,10 @@ import lombok.Setter;
 
 @Entity
 @Getter
-@Setter,
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "id") 
+@EqualsAndHashCode(of = "id")
 @Table(name = "tb_usuario")
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -43,23 +40,18 @@ public class Usuario implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
-	private Set<Endereco> enderecos = new HashSet<>();
+	private List<Endereco> enderecos = new ArrayList<>();
 
-	// @JsonIgnore
+	@JsonIgnore
 	@OneToMany(mappedBy = "prestador")
 	private List<Anuncio> anuncios = new ArrayList<>();
 
-	// @JsonIgnore
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
-	private List<OrdemServico> OrdemServicos = new ArrayList<>();
+	private List<OrdemServico> ordemServicos = new ArrayList<>();
 
-	// @JsonIgnore
+	@JsonIgnore
 	@ManyToMany
 	private List<Especialidade> especialidades = new ArrayList<>();
-
-
-	public Set<Usuario> getEnderecos() {
-        return enderecos.stream().map(Endereco::getUsuario).collect(Collectors.toSet());
-    }
-
+	
 }
