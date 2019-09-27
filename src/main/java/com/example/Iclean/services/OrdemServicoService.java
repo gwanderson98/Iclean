@@ -63,7 +63,7 @@ public class OrdemServicoService {
 	}
 
 	private void updateData(OrdemServico entity, OrdemServicoDTO dto) {
-		entity.setId(dto.getId());
+		entity.setId(dto. getId());
 		entity.setDataInclusao(dto.getDataInclusao());
 		entity.setStatus(dto.getStatus());
 		entity.setCliente(dto.getCliente());

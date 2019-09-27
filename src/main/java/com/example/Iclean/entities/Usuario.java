@@ -30,7 +30,7 @@ public class Usuario implements Serializable {
 	private String email;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "usuario")
 	private List<Endereco> enderecos = new ArrayList<>();
 
 //	@JsonIgnore
@@ -49,13 +49,12 @@ public class Usuario implements Serializable {
 		
 	}
 
-	public Usuario(Long id, String nome, String cpf, String senha, String email, List<Endereco> enderecos) {		
+	public Usuario(Long id, String nome, String cpf, String senha, String email) {		
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.senha = senha;
 		this.email = email;
-		this.enderecos = enderecos;
 	}
 	
 	public Usuario(Usuario entity) {		
@@ -140,5 +139,4 @@ public class Usuario implements Serializable {
 			return false;
 		return true;
 	}
-
 }

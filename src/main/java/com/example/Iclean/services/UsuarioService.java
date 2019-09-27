@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Iclean.dto.UsuarioDTO;
+import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.entities.Usuario;
+import com.example.Iclean.repositories.EnderecoRepository;
 import com.example.Iclean.repositories.UsuarioRepository;
 import com.example.Iclean.services.exceptions.DatabaseException;
 import com.example.Iclean.services.exceptions.ResourceNotFoundException;
@@ -23,6 +25,9 @@ public class UsuarioService {
 	
 	@Autowired
 	private UsuarioRepository repository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public List<UsuarioDTO> findAll(){
 		List<Usuario> list = repository.findAll();
@@ -33,6 +38,13 @@ public class UsuarioService {
 		 Optional<Usuario> obj = repository.findById(id);
 		 Usuario entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
 		 return new UsuarioDTO(entity);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Endereco> findEnderecos(Long id) {
+		 Optional<Usuario> obj = repository.findById(id);
+		 Usuario entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		 return enderecoRepository.findByUsuario(entity);
 	}
 	
 	public Usuario insert(Usuario obj) {
@@ -65,10 +77,7 @@ public class UsuarioService {
 		entity.setId(dto.getId());
 		entity.setNome(dto.getNome());
 		entity.setCpf(dto.getCpf());
+		entity.setSenha(dto.getSenha());
 		entity.setEmail(dto.getEmail());
-		entity.setEnderecos(dto.getEnderecos());
-//		entity.setAnuncios(dto.getAnuncios());
-//		entity.setOrdemServicos(dto.getOrdemServicos());
-//		entity.setEspecialidades(dto.getEspecialidades());
 	}
 }

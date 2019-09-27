@@ -17,23 +17,22 @@ public class UsuarioDTO implements Serializable {
 	private String cpf;
 	private String senha;
 	private String email;
-	private List<Endereco> enderecos;
-	private List<Anuncio> anuncios;
-	private List<OrdemServico> OrdemServicos;
-	private List<Especialidade> especialidades;
+//	private List<Endereco> enderecos;
+//	private List<Anuncio> anuncios;
+//	private List<OrdemServico> OrdemServicos;
+//	private List<Especialidade> especialidades;
 
 	public UsuarioDTO() {
 			
 	}
 	
-	public UsuarioDTO(Long id, String nome, String cpf, String senha, String email, List<Endereco> enderecos) {
+	public UsuarioDTO(Long id, String nome, String cpf, String senha, String email) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.senha = senha;
 		this.email = email;
-		this.enderecos = enderecos;
 	}
 
 	public UsuarioDTO(Usuario entity) {
@@ -42,7 +41,7 @@ public class UsuarioDTO implements Serializable {
 		this.cpf = entity.getCpf();
 		this.senha = entity.getSenha();
 		this.email = entity.getEmail();
-		this.enderecos = entity.getEnderecos();
+//		this.enderecos = entity.getEnderecos();
 //		this.anuncios = entity.getAnuncios();
 //		this.OrdemServicos = entity.getOrdemServicos();
 //		this.especialidades = entity.getEspecialidades();
@@ -88,15 +87,7 @@ public class UsuarioDTO implements Serializable {
 		this.email = email;
 	}
 	
-	public List<Endereco> getEnderecos() {
-		return this.enderecos;
-	}
-	
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
-	}
-
 	public Usuario toEntity() {
-		return new Usuario(id, nome, cpf, senha, email, enderecos);
+		return new Usuario(id, nome, cpf, senha, email);
 	}
 }

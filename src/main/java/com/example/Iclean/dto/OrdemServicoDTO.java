@@ -1,37 +1,17 @@
 package com.example.Iclean.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import com.example.Iclean.entities.Anuncio;
 import com.example.Iclean.entities.Endereco;
-import com.example.Iclean.entities.Especialidade;
 import com.example.Iclean.entities.OrdemServico;
 import com.example.Iclean.entities.Usuario;
 import com.example.Iclean.entities.enums.StatusOrdemServico;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class OrdemServicoDTO implements Serializable{
+public class OrdemServicoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long id;
 	private Date dataInclusao;
 	private StatusOrdemServico status;
@@ -40,7 +20,23 @@ public class OrdemServicoDTO implements Serializable{
 	private Usuario cliente;
 	private Endereco endereco;
 	private Anuncio anuncio;
-	
+
+	public OrdemServicoDTO() {
+
+	}
+
+	public OrdemServicoDTO(Long id, Date dataInclusao, StatusOrdemServico status, int avaliacaoCliente,
+			int avaliacaoPrestador, Usuario cliente, Endereco endereco, Anuncio anuncio) {
+		this.id = id;
+		this.dataInclusao = dataInclusao;
+		this.status = status;
+		this.avaliacaoCliente = avaliacaoCliente;
+		this.avaliacaoPrestador = avaliacaoPrestador;
+		this.cliente = cliente;
+		this.endereco = endereco;
+		this.anuncio = anuncio;
+	}
+
 	public OrdemServicoDTO(OrdemServico entity) {
 		this.id = entity.getId();
 		this.dataInclusao = entity.getDataInclusao();
@@ -51,8 +47,73 @@ public class OrdemServicoDTO implements Serializable{
 		this.endereco = entity.getEndereco();
 		this.anuncio = entity.getAnuncio();
 	}
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getDataInclusao() {
+		return dataInclusao;
+	}
+
+	public void setDataInclusao(Date dataInclusao) {
+		this.dataInclusao = dataInclusao;
+	}
+
+	public StatusOrdemServico getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusOrdemServico status) {
+		this.status = status;
+	}
+
+	public int getAvaliacaoCliente() {
+		return avaliacaoCliente;
+	}
+
+	public void setAvaliacaoCliente(int avaliacaoCliente) {
+		this.avaliacaoCliente = avaliacaoCliente;
+	}
+
+	public int getAvaliacaoPrestador() {
+		return avaliacaoPrestador;
+	}
+
+	public void setAvaliacaoPrestador(int avaliacaoPrestador) {
+		this.avaliacaoPrestador = avaliacaoPrestador;
+	}
+
+	public Usuario getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Usuario cliente) {
+		this.cliente = cliente;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public Anuncio getAnuncio() {
+		return anuncio;
+	}
+
+	public void setAnuncio(Anuncio anuncio) {
+		this.anuncio = anuncio;
+	}
+
 	public OrdemServico toEntity() {
-		return new OrdemServico(id, dataInclusao, status, avaliacaoCliente, avaliacaoPrestador, cliente, endereco, anuncio);
+		return new OrdemServico(id, dataInclusao, status, avaliacaoCliente, avaliacaoPrestador, cliente, endereco,
+				anuncio);
 	}
 }

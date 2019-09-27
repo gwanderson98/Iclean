@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.Iclean.dto.UsuarioDTO;
+import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.entities.Usuario;
 import com.example.Iclean.services.UsuarioService;
 
@@ -37,7 +38,13 @@ public class UsuarioResource {
 		UsuarioDTO obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
-	
+
+	@GetMapping(value = "/{id}/enderecos")
+	public ResponseEntity<List<Endereco>> findEnderecos(@PathVariable Long id){
+		List<Endereco> list = service.findEnderecos(id);
+		return ResponseEntity.ok().body(list);
+	}
+
 	@PostMapping
 	public ResponseEntity<Usuario> insert(@RequestBody Usuario obj){
 		obj = service.insert(obj);

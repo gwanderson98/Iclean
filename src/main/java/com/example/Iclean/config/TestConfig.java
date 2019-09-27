@@ -26,8 +26,8 @@ public class TestConfig implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Usuario u1 = new Usuario(null, "Maria Brown", "123456789", "123", "rogercomp@gmail.com",null);
-		Usuario u2 = new Usuario(null, "Alex Green", "0374561566", "456", "marcobixona@gmail.com",null);
+		Usuario u1 = new Usuario(null, "Maria Brown", "123456789", "123", "rogercomp@gmail.com");
+		Usuario u2 = new Usuario(null, "Alex Green", "0374561566", "456", "marcomala@gmail.com");
 		
 		usuarioRepository.saveAll(Arrays.asList(u1, u2));
 		
@@ -36,15 +36,7 @@ public class TestConfig implements CommandLineRunner {
 		Endereco e3 = new Endereco(null,"Rua C", 102, "complemento C", "Uberlandia", "MG", "38400000", u2);
 		Endereco e4 = new Endereco(null,"Rua D", 103, "complemento D", "Uberlandia", "MG", "38411068", u2);
 	
-		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3, e4));
-		
-//		ArrayList<Endereco> listaEndereco = new ArrayList<Endereco>();
-//		listaEndereco.add(e1);
-//		listaEndereco.add(e2);
-//		
-//		u1.setEnderecos(listaEndereco);
-//		u2.setEnderecos(listaEndereco);
-//		
-//		usuarioRepository.saveAll(Arrays.asList(u1, u2));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3, e4));	
+
 	}
 }
