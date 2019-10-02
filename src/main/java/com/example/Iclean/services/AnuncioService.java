@@ -1,14 +1,10 @@
 package com.example.Iclean.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,20 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Iclean.dto.AnuncioDTO;
 import com.example.Iclean.entities.Anuncio;
-import com.example.Iclean.entities.Especialidade;
-import com.example.Iclean.entities.OrdemServico;
-import com.example.Iclean.entities.Usuario;
 import com.example.Iclean.repositories.AnuncioRepository;
 import com.example.Iclean.services.exceptions.DatabaseException;
 import com.example.Iclean.services.exceptions.ResourceNotFoundException;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Service
 public class AnuncioService {
 
 	@Autowired
-	private AnuncioRepository repository;
-	
+	private AnuncioRepository repository;	
 
 	public List<AnuncioDTO> findAll() {
 		List<Anuncio> list = repository.findAll();

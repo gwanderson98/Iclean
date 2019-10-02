@@ -1,12 +1,7 @@
 package com.example.Iclean.dto;
 
 import java.io.Serializable;
-import java.util.List;
 
-import com.example.Iclean.entities.Anuncio;
-import com.example.Iclean.entities.Endereco;
-import com.example.Iclean.entities.Especialidade;
-import com.example.Iclean.entities.OrdemServico;
 import com.example.Iclean.entities.Usuario;
 
 public class UsuarioDTO implements Serializable {
@@ -14,28 +9,25 @@ public class UsuarioDTO implements Serializable {
 
 	private Long id;
 	private String nome;
-	private String cpf;
-	private String senha;
+	private String cpf;	
 	private String email;
 
 	public UsuarioDTO() {
 			
 	}
 	
-	public UsuarioDTO(Long id, String nome, String cpf, String senha, String email) {
+	public UsuarioDTO(Long id, String nome, String cpf, String email) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.cpf = cpf;
-		this.senha = senha;
+		this.cpf = cpf;	
 		this.email = email;
 	}
 
 	public UsuarioDTO(Usuario entity) {
 		this.id = entity.getId();
 		this.nome = entity.getNome();
-		this.cpf = entity.getCpf();
-		this.senha = entity.getSenha();
+		this.cpf = entity.getCpf();		
 		this.email = entity.getEmail();
 	}
 
@@ -62,15 +54,7 @@ public class UsuarioDTO implements Serializable {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
+	
 	public String getEmail() {
 		return email;
 	}
@@ -80,6 +64,6 @@ public class UsuarioDTO implements Serializable {
 	}
 	
 	public Usuario toEntity() {
-		return new Usuario(id, nome, cpf, senha, email);
+		return new Usuario(id, nome, cpf, null, email);
 	}
 }

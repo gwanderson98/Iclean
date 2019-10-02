@@ -1,11 +1,8 @@
 package com.example.Iclean.dto;
 
 import java.io.Serializable;
-import java.util.List;
 
-import com.example.Iclean.entities.Anuncio;
 import com.example.Iclean.entities.Especialidade;
-import com.example.Iclean.entities.Usuario;
 
 public class EspecialidadeDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -18,7 +15,6 @@ public class EspecialidadeDTO implements Serializable {
 	}
 
 	public EspecialidadeDTO(Long id, String nome) {
-		super();
 		this.id = id;
 		this.nome = nome;
 	}

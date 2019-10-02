@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,20 +30,20 @@ public class Anuncio implements Serializable {
 	private String descricao;
 	private Double preco;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "prestador_id")
 	private Usuario prestador = new Usuario();
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "anuncio")
-	private List<OrdemServico> ordemServicos = new ArrayList<>();
-
-	@ManyToOne
-	@JoinColumn(name = "especialidade_id")
-	private Especialidade especialidade = new Especialidade();
-	
-	@ManyToMany
-	private List<PalavraChave> palavrasChaves = new ArrayList<>();
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "anuncio")
+//	private List<OrdemServico> ordemServicos = new ArrayList<>();
+//
+//	@ManyToOne
+//	@JoinColumn(name = "especialidade_id")
+//	private Especialidade especialidade = new Especialidade();
+//	
+//	@ManyToMany
+//	private List<PalavraChave> palavrasChaves = new ArrayList<>();
 
 	public Anuncio() {
 
@@ -53,9 +55,6 @@ public class Anuncio implements Serializable {
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.preco = preco;
-		this.prestador = prestador;
-		this.ordemServicos = ordemServicos;
-		this.especialidade = especialidade;
 	}
 
 	public Long getId() {
@@ -98,21 +97,21 @@ public class Anuncio implements Serializable {
 		this.prestador = prestador;
 	}
 
-	public List<OrdemServico> getOrdemServicos() {
-		return ordemServicos;
-	}
-
-	public void setOrdemServicos(List<OrdemServico> ordemServicos) {
-		this.ordemServicos = ordemServicos;
-	}
-
-	public Especialidade getEspecialidade() {
-		return especialidade;
-	}
-
-	public void setEspecialidade(Especialidade especialidade) {
-		this.especialidade = especialidade;
-	}
+//	public List<OrdemServico> getOrdemServicos() {
+//		return ordemServicos;
+//	}
+//
+//	public void setOrdemServicos(List<OrdemServico> ordemServicos) {
+//		this.ordemServicos = ordemServicos;
+//	}
+//
+//	public Especialidade getEspecialidade() {
+//		return especialidade;
+//	}
+//
+//	public void setEspecialidade(Especialidade especialidade) {
+//		this.especialidade = especialidade;
+//	}
 
 	@Override
 	public int hashCode() {

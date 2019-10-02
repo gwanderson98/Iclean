@@ -31,15 +31,14 @@ public class EnderecoDTO implements Serializable {
 	}
 
 	public EnderecoDTO(Endereco entity) {
-		this.id = entity.getId();
-		this.logradouro = entity.getLogradouro();
-		this.numero = entity.getNumero();
-		this.complemento = entity.getComplemento();
-		this.cidade = entity.getCidade();
-		this.estado = entity.getEstado();
-		this.cep = entity.getCep();
+		setId(entity.getId());
+		setLogradouro(entity.getLogradouro());
+		setNumero(entity.getNumero());
+		setComplemento(entity.getComplemento());
+		setCidade(entity.getCidade());
+		setEstado(entity.getEstado());
+		setCep(entity.getCep());
 	}
-
 	
 	public Long getId() {
 		return id;

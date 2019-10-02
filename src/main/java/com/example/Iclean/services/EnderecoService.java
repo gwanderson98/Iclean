@@ -36,6 +36,7 @@ public class EnderecoService {
 		return new EnderecoDTO(entity);
 	}
 
+	@Transactional
 	public Endereco insert(Endereco obj) {
 		return repository.save(obj);
 	}
