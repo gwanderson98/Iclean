@@ -3,10 +3,7 @@ package com.example.Iclean.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.example.Iclean.entities.Anuncio;
-import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.entities.OrdemServico;
-import com.example.Iclean.entities.Usuario;
 import com.example.Iclean.entities.enums.StatusOrdemServico;
 
 public class OrdemServicoDTO implements Serializable {

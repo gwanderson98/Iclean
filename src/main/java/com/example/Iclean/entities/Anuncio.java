@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -30,17 +29,18 @@ public class Anuncio implements Serializable {
 	private String descricao;
 	private Double preco;
 
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "prestador_id")
 	private Usuario prestador = new Usuario();
 
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "anuncio")
-//	private List<OrdemServico> ordemServicos = new ArrayList<>();
+	@JsonIgnore
+	@OneToMany(mappedBy = "anuncio")
+	private List<OrdemServico> ordemServicos = new ArrayList<>();
 //
-//	@ManyToOne
-//	@JoinColumn(name = "especialidade_id")
-//	private Especialidade especialidade = new Especialidade();
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "especialidade_id")
+	private Especialidade especialidade = new Especialidade();
 //	
 //	@ManyToMany
 //	private List<PalavraChave> palavrasChaves = new ArrayList<>();
@@ -49,8 +49,7 @@ public class Anuncio implements Serializable {
 
 	}
 
-	public Anuncio(Long id, String titulo, String descricao, Double preco) {
-		super();
+	public Anuncio(Long id, String titulo, String descricao, Double preco) {		
 		this.id = id;
 		this.titulo = titulo;
 		this.descricao = descricao;
@@ -97,13 +96,13 @@ public class Anuncio implements Serializable {
 		this.prestador = prestador;
 	}
 
-//	public List<OrdemServico> getOrdemServicos() {
-//		return ordemServicos;
-//	}
-//
-//	public void setOrdemServicos(List<OrdemServico> ordemServicos) {
-//		this.ordemServicos = ordemServicos;
-//	}
+	public List<OrdemServico> getOrdemServicos() {
+		return ordemServicos;
+	}
+
+	public void setOrdemServicos(List<OrdemServico> ordemServicos) {
+		this.ordemServicos = ordemServicos;
+	}
 //
 //	public Especialidade getEspecialidade() {
 //		return especialidade;

@@ -48,7 +48,6 @@ public class UsuarioService {
 	}
 	
 	
-	
 //	@Transactional(readOnly = true)
 //	public List<Endereco> findEnderecos(Long id) {
 //		try {
@@ -60,6 +59,14 @@ public class UsuarioService {
 //	}
 	
 
+//	@Transactional
+//	public UsuarioDTO insert(Especialidade  CategoriesDTO dto) {
+//		Product entity = dto.toEntity();
+//		setProductCategories(entity, dto.getCategories());
+//		entity = repository.save(entity);
+//		return new ProductDTO(entity);
+//	}
+	
 	public Usuario insert(Usuario obj) {
 		return repository.save(obj);
 	}

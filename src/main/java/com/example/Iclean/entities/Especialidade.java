@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class Especialidade implements Serializable{
 	private String nome;
 	
 	@JsonIgnore
-	@ManyToMany(mappedBy = "especialidades")
+	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Usuario> usuarios = new ArrayList<>();
 	
 	@JsonIgnore
@@ -66,17 +67,9 @@ public class Especialidade implements Serializable{
 		return usuarios;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
 	public List<Anuncio> getAnuncios() {
 		return anuncios;
-	}
-
-	public void setAnuncios(List<Anuncio> anuncios) {
-		this.anuncios = anuncios;
-	}
+	}	
 
 	@Override
 	public int hashCode() {
