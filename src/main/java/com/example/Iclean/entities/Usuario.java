@@ -2,7 +2,9 @@ package com.example.Iclean.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -43,8 +47,14 @@ public class Usuario implements Serializable {
 	private List<OrdemServico> ordemServicos = new ArrayList<>();
 
 	@JsonIgnore
-	@ManyToMany(mappedBy = "usuarios")
-	private List<Especialidade> especialidades = new ArrayList<>();
+	@ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE
+            })
+	@JoinTable(name = "tb_usuario_especialidades", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "especialidade_id"))                
+	private Set<Especialidade> especialidades = new HashSet<>(); 
+	
 	
 	public Usuario() {
 		
@@ -114,6 +124,10 @@ public class Usuario implements Serializable {
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
 	}
+	
+	public Set<Especialidade> getEspecialidades() {
+		return especialidades;
+	}	
 
 	@Override
 	public int hashCode() {

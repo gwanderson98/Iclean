@@ -2,9 +2,13 @@ package com.example.Iclean.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,8 +28,13 @@ public class PalavraChave implements Serializable{
 	private String texto;
 	
 	@JsonIgnore
-	@ManyToMany
-	private List<Anuncio> anuncios = new ArrayList<>();
+	@ManyToMany(fetch = FetchType.LAZY, 
+			  cascade = {
+		                CascadeType.PERSIST,
+		                CascadeType.MERGE
+		            },	mappedBy = "palavrasChaves")
+	private Set<Anuncio> anuncios = new HashSet<>();
+	
 	
 	public PalavraChave() {
 		
@@ -51,6 +60,10 @@ public class PalavraChave implements Serializable{
 
 	public void setTexto(String texto) {
 		this.texto = texto;
+	}
+	
+	public Set<Anuncio> getAnuncios() {
+		return anuncios;
 	}
 
 	@Override

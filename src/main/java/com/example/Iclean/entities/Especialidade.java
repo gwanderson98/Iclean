@@ -2,8 +2,11 @@ package com.example.Iclean.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,8 +29,12 @@ public class Especialidade implements Serializable{
 	private String nome;
 	
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY)
-	private List<Usuario> usuarios = new ArrayList<>();
+	@ManyToMany(fetch = FetchType.LAZY, 
+			  cascade = {
+		                CascadeType.PERSIST,
+		                CascadeType.MERGE
+		            },	mappedBy = "especialidades")
+	private Set<Usuario> usuarios = new HashSet<>();
 	
 	@JsonIgnore
 	@OneToMany
@@ -63,7 +70,7 @@ public class Especialidade implements Serializable{
 		this.nome = nome;
 	}
 
-	public List<Usuario> getUsuarios() {
+	public Set<Usuario> getUsuarios() {
 		return usuarios;
 	}
 

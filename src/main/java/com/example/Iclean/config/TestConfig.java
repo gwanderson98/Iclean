@@ -13,6 +13,7 @@ import com.example.Iclean.entities.Anuncio;
 import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.entities.Especialidade;
 import com.example.Iclean.entities.OrdemServico;
+import com.example.Iclean.entities.PalavraChave;
 import com.example.Iclean.entities.Usuario;
 import com.example.Iclean.entities.enums.StatusOrdemServico;
 import com.example.Iclean.repositories.AnuncioRepository;
@@ -43,12 +44,17 @@ public class TestConfig implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+		// Cleanup the tables
+		usuarioRepository.deleteAllInBatch();
+		especialidadeRepository.deleteAllInBatch();
+		
+		
 		// Usuarios
 		Usuario u1 = new Usuario(null, "Prestador 1", "123456789", "123", "rogercomp@gmail.com");
 		Usuario u2 = new Usuario(null, "Prestador 2", "0374561566", "456", "marcomala@gmail.com");
 		
 		Usuario c1 = new Usuario(null, "Cliente 1", "123456465", "678", "cliente1@gmail.com");
-		Usuario c2 = new Usuario(null, "Cliente 2", "456789123", "947", "cliente2@gmail.com");
+	//	Usuario c2 = new Usuario(null, "Cliente 2", "456789123", "947", "cliente2@gmail.com");
 
 		// Endereços
 		List<Endereco> listaEnd = new ArrayList<>();
@@ -74,26 +80,32 @@ public class TestConfig implements CommandLineRunner {
 		
 //		OrdemServico ord1 = new OrdemServico(null, null, StatusOrdemServico.ABERTA, 0, 0);
 //		OrdemServico ord2 = new OrdemServico(null, null, StatusOrdemServico.ABERTA, 0, 0);
-//
+////
 //		ord1.setAnuncio(anun1);
 //		ord2.setAnuncio(anun2);
-//		
+////		
 //		ord1.setCliente(c1);
 //		ord2.setCliente(c1);
 //
 //		// salvando ordemsServicos
-//		ordemServicoRepository.saveAll(Arrays.asList(ord1, ord2));
+		//ordemServicoRepository.save(ord1);
 
 		// Especialidade
 		Especialidade esp1 = new Especialidade(null, "Carpinteiro");
-		Especialidade esp2 = new Especialidade(null, "Especialidade");		
-		
-		// salvando especialidades
-		especialidadeRepository.saveAll(Arrays.asList(esp1, esp2));
+				
+		u1.getEspecialidades().add(esp1);
 		
 		esp1.getUsuarios().add(u1);
-
-		especialidadeRepository.saveAll(Arrays.asList(esp1, esp2));
+		
+		
+		//Palavras Chave
+		PalavraChave palChave1 = new PalavraChave(null, "trabalho com madeira");
+		PalavraChave palChave2 = new PalavraChave(null, "moveis em madeira");
+		
+		anun1.getPalavraChave().add(palChave1);
+		anun1.getPalavraChave().add(palChave2);
+		
+		palChave1.getAnuncios().add(anun1);
 		
 		//salvando anuncios
 		anuncioRepository.saveAll(Arrays.asList(anun1, anun2));
