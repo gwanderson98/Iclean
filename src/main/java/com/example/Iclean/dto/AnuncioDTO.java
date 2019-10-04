@@ -3,6 +3,8 @@
 import java.io.Serializable;
 
 import com.example.Iclean.entities.Anuncio;
+import com.example.Iclean.entities.Especialidade;
+import com.example.Iclean.entities.Usuario;
 
 
 public class AnuncioDTO implements Serializable{
@@ -12,24 +14,30 @@ public class AnuncioDTO implements Serializable{
 	private String titulo;
 	private String descricao;
 	private Double preco;
+	private Long usuarioId;
+	private Long especialidadeId;
 		
 	public AnuncioDTO() {
 		
 	}
-		
-	public AnuncioDTO(Long id, String titulo, String descricao, Double preco) {		
+	
+	public AnuncioDTO(Long id, String titulo, String descricao, Double preco, Long usuarioId, Long especialidadeId) {
+		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.preco = preco;
+		this.usuarioId = usuarioId;
+		this.especialidadeId = especialidadeId;
 	}
 
-	
 	public AnuncioDTO(Anuncio entity) {
 		this.id = entity.getId();
 		this.titulo = entity.getTitulo();
 		this.descricao = entity.getDescricao();
 		this.preco = entity.getPreco();	
+		this.usuarioId = entity.getPrestador().getId();
+		this.especialidadeId = entity.getEspecialidade().getId();
 	}
 
 	public Long getId() {
@@ -62,9 +70,29 @@ public class AnuncioDTO implements Serializable{
 
 	public void setPreco(Double preco) {
 		this.preco = preco;
+	}	
+	
+	public Long getUsuarioId() {
+		return usuarioId;
+	}
+
+	public void setUsuarioId(Long usuarioId) {
+		this.usuarioId = usuarioId;
+	}
+
+	public Long getEspecialidadeId() {
+		return especialidadeId;
+	}
+
+	public void setEspecialidadeId(Long especialidadeId) {
+		this.especialidadeId = especialidadeId;
 	}
 
 	public Anuncio toEntity() {
-		return new Anuncio(id, titulo, descricao, preco);
+		Usuario usuario = new Usuario();
+		usuario.setId(usuarioId);
+		Especialidade especialidade = new Especialidade();
+		especialidade.setId(especialidadeId);
+		return new Anuncio(id, titulo, descricao, preco, usuario, especialidade);
 	}
 }

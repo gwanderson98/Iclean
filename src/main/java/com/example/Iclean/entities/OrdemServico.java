@@ -3,9 +3,7 @@ package com.example.Iclean.entities;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,37 +21,40 @@ public class OrdemServico implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Date dataInclusao;
+	private Date dataInclusao;	
 	private StatusOrdemServico status;
 	private int avaliacaoCliente;
 	private int avaliacaoPrestador;
+	
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Usuario cliente = new Usuario();
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco = new Endereco();
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "anuncio_id")
 	private Anuncio anuncio = new Anuncio();
 
 	public OrdemServico() {
 
-	}
+	}	
 	
 	public OrdemServico(Long id, Date dataInclusao, StatusOrdemServico status, int avaliacaoCliente,
-			int avaliacaoPrestador) {		
+			int avaliacaoPrestador, Usuario cliente, Endereco endereco, Anuncio anuncio) {	
 		this.id = id;
 		this.dataInclusao = dataInclusao;
 		this.status = status;
 		this.avaliacaoCliente = avaliacaoCliente;
 		this.avaliacaoPrestador = avaliacaoPrestador;
+		this.cliente = cliente;
+		this.endereco = endereco;
+		this.anuncio = anuncio;
 	}
-
-
+	
 	public Long getId() {
 		return id;
 	}

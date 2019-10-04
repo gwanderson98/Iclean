@@ -1,14 +1,10 @@
 package com.example.Iclean.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,35 +16,31 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_especialidade")
-public class Especialidade implements Serializable{
+public class Especialidade implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	
+
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY, 
-			  cascade = {
-		                CascadeType.PERSIST,
-		                CascadeType.MERGE
-		            },	mappedBy = "especialidades")
+	@ManyToMany(mappedBy = "especialidades")
 	private Set<Usuario> usuarios = new HashSet<>();
-	
+
 	@JsonIgnore
-	@OneToMany
-	private List<Anuncio> anuncios = new ArrayList<>();
-	
+	@OneToMany(mappedBy="especialidade")
+	private Set<Anuncio> anuncios = new HashSet();
+
 	public Especialidade() {
-		
+
 	}
 
 	public Especialidade(Long id, String nome) {
 		this.id = id;
 		this.nome = nome;
 	}
-	
+
 	public Especialidade(Especialidade entity) {
 		this.id = entity.getId();
 		this.nome = entity.getNome();
@@ -74,9 +66,9 @@ public class Especialidade implements Serializable{
 		return usuarios;
 	}
 
-	public List<Anuncio> getAnuncios() {
+	public Set<Anuncio> getAnuncios() {
 		return anuncios;
-	}	
+	}
 
 	@Override
 	public int hashCode() {
@@ -101,5 +93,5 @@ public class Especialidade implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
+	}
 }

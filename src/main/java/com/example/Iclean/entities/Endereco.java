@@ -34,7 +34,7 @@ public class Endereco implements Serializable {
 	private String cep;
 
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "usuario_id")	
 	private Usuario usuario = new Usuario();
 	
@@ -46,7 +46,7 @@ public class Endereco implements Serializable {
 	}
 	
 	public Endereco(Long id, String logradouro, Integer numero, String complemento, String cidade, String estado,
-			String cep) {
+			String cep, Usuario usuario) {
 		this.id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;
@@ -54,6 +54,7 @@ public class Endereco implements Serializable {
 		this.cidade = cidade;
 		this.estado = estado;
 		this.cep = cep;
+		this.usuario = usuario;
 	}
 	
 	public Endereco(Endereco entity) {

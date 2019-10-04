@@ -34,7 +34,7 @@ public class Anuncio implements Serializable {
 	private Double preco;
 
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "prestador_id")
 	private Usuario prestador = new Usuario();
 
@@ -42,16 +42,12 @@ public class Anuncio implements Serializable {
 	@OneToMany(mappedBy = "anuncio")
 	private List<OrdemServico> ordemServicos = new ArrayList<>();
 //
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "especialidade_id")
 	private Especialidade especialidade = new Especialidade();
 
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                CascadeType.PERSIST,
-                CascadeType.MERGE
-            })
+	@ManyToMany
 	@JoinTable(name = "tb_anuncio_palavrachave", joinColumns = @JoinColumn(name = "anuncio_id"), 
 	           inverseJoinColumns = @JoinColumn(name = "palavrachave_id"))                
 	private Set<PalavraChave> palavrasChaves = new HashSet<>(); 
@@ -60,11 +56,14 @@ public class Anuncio implements Serializable {
 
 	}
 
-	public Anuncio(Long id, String titulo, String descricao, Double preco) {		
+	public Anuncio(Long id, String titulo, String descricao, Double preco, Usuario prestador, Especialidade especialidade) {	
 		this.id = id;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.preco = preco;
+		this.prestador = prestador;		
+		this.especialidade = especialidade;
+		
 	}
 
 	public Long getId() {
@@ -119,13 +118,13 @@ public class Anuncio implements Serializable {
 		return palavrasChaves;
 	}
 //
-//	public Especialidade getEspecialidade() {
-//		return especialidade;
-//	}
+	public Especialidade getEspecialidade() {
+		return especialidade;
+	}
 //
-//	public void setEspecialidade(Especialidade especialidade) {
-//		this.especialidade = especialidade;
-//	}
+	public void setEspecialidade(Especialidade especialidade) {
+		this.especialidade = especialidade;
+	}
 
 	@Override
 	public int hashCode() {

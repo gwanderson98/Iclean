@@ -3,6 +3,8 @@ package com.example.Iclean.dto;
 import java.io.Serializable;
 
 import com.example.Iclean.entities.Endereco;
+import com.example.Iclean.entities.Usuario;
+import com.fasterxml.jackson.databind.Module.SetupContext;
 
 public class EnderecoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -14,13 +16,17 @@ public class EnderecoDTO implements Serializable {
 	private String cidade;
 	private String estado;
 	private String cep;
+	private Long usuarioId;
 
 	public EnderecoDTO() {
 
 	}
 
+	
+
 	public EnderecoDTO(Long id, String logradouro, Integer numero, String complemento, String cidade, String estado,
-			String cep) {
+			String cep, Long usuarioId) {
+		super();
 		this.id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;
@@ -28,7 +34,10 @@ public class EnderecoDTO implements Serializable {
 		this.cidade = cidade;
 		this.estado = estado;
 		this.cep = cep;
+		this.usuarioId = usuarioId;
 	}
+
+
 
 	public EnderecoDTO(Endereco entity) {
 		setId(entity.getId());
@@ -38,6 +47,7 @@ public class EnderecoDTO implements Serializable {
 		setCidade(entity.getCidade());
 		setEstado(entity.getEstado());
 		setCep(entity.getCep());
+		setUsuarioId(usuarioId);
 	}
 	
 	public Long getId() {
@@ -95,8 +105,18 @@ public class EnderecoDTO implements Serializable {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
+		
+	public Long getUsuarioId() {
+		return usuarioId;
+	}
+
+	public void setUsuarioId(Long usuarioId) {
+		this.usuarioId = usuarioId;
+	}
 
 	public Endereco toEntity() {
-		return new Endereco(id, logradouro, numero, complemento, cidade, estado, cep);
+		Usuario usuario = new Usuario();
+		usuario.setId(usuarioId);
+		return new Endereco(id, logradouro, numero, complemento, cidade, estado, cep, usuario);
 	}
 }

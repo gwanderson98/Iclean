@@ -1,7 +1,9 @@
 package com.example.Iclean.config;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import com.example.Iclean.repositories.AnuncioRepository;
 import com.example.Iclean.repositories.EnderecoRepository;
 import com.example.Iclean.repositories.EspecialidadeRepository;
 import com.example.Iclean.repositories.OrdemServicoRepository;
+import com.example.Iclean.repositories.PalavraChaveRepository;
 import com.example.Iclean.repositories.UsuarioRepository;
 
 @Configuration
@@ -40,6 +43,9 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private OrdemServicoRepository ordemServicoRepository;
+	
+	@Autowired
+	private PalavraChaveRepository palavraChaveRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -50,67 +56,53 @@ public class TestConfig implements CommandLineRunner {
 		
 		
 		// Usuarios
-		Usuario u1 = new Usuario(null, "Prestador 1", "123456789", "123", "rogercomp@gmail.com");
-		Usuario u2 = new Usuario(null, "Prestador 2", "0374561566", "456", "marcomala@gmail.com");
-		
-		Usuario c1 = new Usuario(null, "Cliente 1", "123456465", "678", "cliente1@gmail.com");
-	//	Usuario c2 = new Usuario(null, "Cliente 2", "456789123", "947", "cliente2@gmail.com");
+		Usuario u1 = new Usuario(null, "Joao Marcos", "123456789", "senha123", "joaoM@gmail.com");
+		Usuario u2 = new Usuario(null, "Marco Malagas", "0374561566", "senha321", "marcomala@gmail.com");	
 
-		// Endereços
-		List<Endereco> listaEnd = new ArrayList<>();
-
-		Endereco e1 = new Endereco(null, "Rua A", 100, "complemento A", "Uberlandia", "MG", "38400000");
-		Endereco e2 = new Endereco(null, "Rua B", 101, "complemento B", "Uberlandia", "MG", "38411068");
-
-		listaEnd.add(e1);
-		listaEnd.add(e2);
-
-		e1.setUsuario(u1);
-		e2.setUsuario(u1);
+		Endereco e1 = new Endereco(null, "Avenida Para ", 100, "Medicina", "Uberlandia", "MG", "38400000", u1);
+		Endereco e2 = new Endereco(null, "Rua Afonso Pena", 101, "Porto Alegre", "Uberlandia", "MG", "38411068", u1);
 
 		// salvando endereço
+		usuarioRepository.saveAll(Arrays.asList(u1, u2));
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 
-		// Anuncio
-		Anuncio anun1 = new Anuncio(null, "Prestador 1", "Anuncio Teste 1", 10.50);
-		Anuncio anun2 = new Anuncio(null, "Prestador 2", "Anuncio Teste 2", 11.50);
-
-		anun1.setPrestador(u2);
-		anun2.setPrestador(u2);
-		
-//		OrdemServico ord1 = new OrdemServico(null, null, StatusOrdemServico.ABERTA, 0, 0);
-//		OrdemServico ord2 = new OrdemServico(null, null, StatusOrdemServico.ABERTA, 0, 0);
-////
-//		ord1.setAnuncio(anun1);
-//		ord2.setAnuncio(anun2);
-////		
-//		ord1.setCliente(c1);
-//		ord2.setCliente(c1);
-//
-//		// salvando ordemsServicos
-		//ordemServicoRepository.save(ord1);
-
-		// Especialidade
 		Especialidade esp1 = new Especialidade(null, "Carpinteiro");
-				
-		u1.getEspecialidades().add(esp1);
 		
-		esp1.getUsuarios().add(u1);
-		
-		
+		// Anuncio
+		Anuncio anun1 = new Anuncio(null, "Carpintaria na promoção", "Todos os tipos de serviços de carpintaria ao seu alcance", 10.50, u1, esp1);
+		Anuncio anun2 = new Anuncio(null, "Montagem de Moveis na faixa", "Montagens em geral na metade de preço", 11.50, u1, esp1);
+	
 		//Palavras Chave
 		PalavraChave palChave1 = new PalavraChave(null, "trabalho com madeira");
 		PalavraChave palChave2 = new PalavraChave(null, "moveis em madeira");
 		
-		anun1.getPalavraChave().add(palChave1);
-		anun1.getPalavraChave().add(palChave2);
-		
-		palChave1.getAnuncios().add(anun1);
+		//salvando especialidade
+		especialidadeRepository.save(esp1);
 		
 		//salvando anuncios
 		anuncioRepository.saveAll(Arrays.asList(anun1, anun2));
 		
-		// salvando usuarios
-		usuarioRepository.saveAll(Arrays.asList(u1, u2));
+		//salvando palavrasChaves
+		palavraChaveRepository.saveAll(Arrays.asList(palChave1, palChave2));
+		
+		anun1.getPalavraChave().add(palChave1);
+		anun2.getPalavraChave().add(palChave1);
+		anun2.getPalavraChave().add(palChave2);
+		
+		//salvando associacoes dos anuncios com palavras chave
+		anuncioRepository.saveAll(Arrays.asList(anun1, anun2));
+		
+		u1.getEspecialidades().add(esp1);
+		
+		usuarioRepository.saveAll(Arrays.asList(u1));
+		
+		
+		OrdemServico ord1 = new OrdemServico(null, Date.from(Instant.now()) , StatusOrdemServico.ABERTA, 0, 0, u1, e1, anun1);
+		OrdemServico ord2 = new OrdemServico(null, Date.from(Instant.now()) , StatusOrdemServico.CONCLUIDA, 10, 10, u2, e2, anun2);
+		
+		
+		ordemServicoRepository.saveAll(Arrays.asList(ord1, ord2));
+		
+		
 	}
 }

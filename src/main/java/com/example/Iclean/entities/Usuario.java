@@ -47,11 +47,7 @@ public class Usuario implements Serializable {
 	private List<OrdemServico> ordemServicos = new ArrayList<>();
 
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                CascadeType.PERSIST,
-                CascadeType.MERGE
-            })
+	@ManyToMany
 	@JoinTable(name = "tb_usuario_especialidades", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "especialidade_id"))                
 	private Set<Especialidade> especialidades = new HashSet<>(); 
 	
