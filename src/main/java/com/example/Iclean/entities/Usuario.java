@@ -60,8 +60,7 @@ public class Usuario implements Serializable {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
-		this.senha = senha;
-		this.senha = senha;
+		this.senha = senha;		
 		this.email = email;
 	}
 	
