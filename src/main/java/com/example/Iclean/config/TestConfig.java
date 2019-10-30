@@ -14,6 +14,7 @@ import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.entities.Especialidade;
 import com.example.Iclean.entities.OrdemServico;
 import com.example.Iclean.entities.PalavraChave;
+import com.example.Iclean.entities.Role;
 import com.example.Iclean.entities.Usuario;
 import com.example.Iclean.entities.enums.StatusOrdemServico;
 import com.example.Iclean.repositories.AnuncioRepository;
@@ -21,6 +22,7 @@ import com.example.Iclean.repositories.EnderecoRepository;
 import com.example.Iclean.repositories.EspecialidadeRepository;
 import com.example.Iclean.repositories.OrdemServicoRepository;
 import com.example.Iclean.repositories.PalavraChaveRepository;
+import com.example.Iclean.repositories.RoleRepository;
 import com.example.Iclean.repositories.UsuarioRepository;
 
 @Configuration
@@ -44,13 +46,16 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private PalavraChaveRepository palavraChaveRepository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
 
 		// Cleanup the tables
-		usuarioRepository.deleteAllInBatch();
-		especialidadeRepository.deleteAllInBatch();
+		//usuarioRepository.deleteAllInBatch();
+		//especialidadeRepository.deleteAllInBatch();
 		
 		
 		// Usuarios
@@ -63,6 +68,19 @@ public class TestConfig implements CommandLineRunner {
 		// salvando endereço
 		usuarioRepository.saveAll(Arrays.asList(u1, u2));
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		
+		//Permissões
+		Role perm1 = new Role(null, "ROLE_CLIENT");
+		Role perm2 = new Role(null, "ROLE_ADMIN");
+		
+		roleRepository.saveAll(Arrays.asList(perm1, perm2));
+		
+		u1.getRoles().add(perm1);
+		u2.getRoles().add(perm1);
+		u2.getRoles().add(perm2);
+		
+		//usuarioRepository.save(u1);
+		
 
 		Especialidade esp1 = new Especialidade(null, "Carpinteiro");
 		
@@ -92,7 +110,7 @@ public class TestConfig implements CommandLineRunner {
 		
 		u1.getEspecialidades().add(esp1);
 		
-		usuarioRepository.saveAll(Arrays.asList(u1));
+		//usuarioRepository.saveAll(Arrays.asList(u1));
 		
 		
 		OrdemServico ord1 = new OrdemServico(null, Date.from(Instant.now()) , StatusOrdemServico.ABERTA, 0, 0, u1, e1, anun1);
@@ -101,6 +119,8 @@ public class TestConfig implements CommandLineRunner {
 		
 		ordemServicoRepository.saveAll(Arrays.asList(ord1, ord2));
 		
+		
+		usuarioRepository.saveAll(Arrays.asList(u1, u2));
 		
 	}
 }

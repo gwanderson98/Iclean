@@ -1,12 +1,11 @@
 package com.example.Iclean.entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,11 +17,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_usuario")
-public class Usuario implements Serializable {
+public class Usuario implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -52,6 +54,10 @@ public class Usuario implements Serializable {
 	private Set<Especialidade> especialidades = new HashSet<>(); 
 	
 	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "tb_usuario_role", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))   
+	private Set<Role> roles = new HashSet<>(); 
+
 	public Usuario() {
 		
 	}
@@ -123,7 +129,11 @@ public class Usuario implements Serializable {
 	public Set<Especialidade> getEspecialidades() {
 		return especialidades;
 	}	
-
+	
+	public Set<Role> getRoles() {
+		return roles;
+	}
+		
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -146,6 +156,41 @@ public class Usuario implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		return true;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {	
+		return roles;
+	}
+
+	@Override
+	public String getPassword() {
+		return senha;
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {		
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {		
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {		
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {		
 		return true;
 	}
 }
