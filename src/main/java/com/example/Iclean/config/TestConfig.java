@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.example.Iclean.entities.Anuncio;
 import com.example.Iclean.entities.Endereco;
@@ -30,6 +31,9 @@ import com.example.Iclean.repositories.UsuarioRepository;
 public class TestConfig implements CommandLineRunner {
 
 	@Autowired
+	private BCryptPasswordEncoder passwordEncode;
+	
+	@Autowired
 	private UsuarioRepository usuarioRepository;
 
 	@Autowired
@@ -48,7 +52,7 @@ public class TestConfig implements CommandLineRunner {
 	private PalavraChaveRepository palavraChaveRepository;
 	
 	@Autowired
-	private RoleRepository roleRepository;
+	private RoleRepository roleRepository;	
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -59,8 +63,8 @@ public class TestConfig implements CommandLineRunner {
 		
 		
 		// Usuarios
-		Usuario u1 = new Usuario(null, "Joao Marcos", "123456789", "senha123", "joaoM@gmail.com");
-		Usuario u2 = new Usuario(null, "Marco Malagas", "0374561566", "senha321", "marcomala@gmail.com");	
+		Usuario u1 = new Usuario(null, "Joao Marcos", "123456789", passwordEncode.encode("senha123"), "joaoM@gmail.com");
+		Usuario u2 = new Usuario(null, "Marco Malagas", "0374561566",  passwordEncode.encode("senha321"), "marcomala@gmail.com");	
 
 		Endereco e1 = new Endereco(null, "Avenida Para ", 100, "Medicina", "Uberlandia", "MG", "38400000", u1);
 		Endereco e2 = new Endereco(null, "Rua Afonso Pena", 101, "Porto Alegre", "Uberlandia", "MG", "38411068", u1);

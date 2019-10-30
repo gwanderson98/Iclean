@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -34,6 +35,8 @@ public class Usuario implements UserDetails {
 	private String nome;
 	private String cpf;
 	private String senha;
+	
+	@Column(unique = true)
 	private String email;
 
 	@JsonIgnore
@@ -192,5 +195,14 @@ public class Usuario implements UserDetails {
 	@Override
 	public boolean isEnabled() {		
 		return true;
+	}
+	
+	public boolean hasRole(String roleName) {
+		for (Role role : roles) {
+			if (role.getAuthority().equals(roleName)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

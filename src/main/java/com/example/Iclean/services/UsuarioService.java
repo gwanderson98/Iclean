@@ -9,10 +9,15 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Iclean.dto.UsuarioDTO;
+import com.example.Iclean.dto.UsuarioInsertDTO;
 import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.entities.Usuario;
 import com.example.Iclean.repositories.EnderecoRepository;
@@ -21,8 +26,11 @@ import com.example.Iclean.services.exceptions.DatabaseException;
 import com.example.Iclean.services.exceptions.ResourceNotFoundException;
 
 @Service
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService {
 
+	@Autowired
+	private BCryptPasswordEncoder passwordEncode;
+	
 	@Autowired
 	private UsuarioRepository repository;
 
@@ -47,28 +55,11 @@ public class UsuarioService {
 		return enderecoRepository.findByUsuario(entity);
 	}
 	
-	
-//	@Transactional(readOnly = true)
-//	public List<Endereco> findEnderecos(Long id) {
-//		try {
-//			Usuario obj = repository.getOne(id);
-//			return enderecoRepository.findByUsuario(obj);
-//		} catch (EntityNotFoundException e) {
-//			throw new ResourceNotFoundException(id);
-//		}
-//	}
-	
-
-//	@Transactional
-//	public UsuarioDTO insert(Especialidade  CategoriesDTO dto) {
-//		Product entity = dto.toEntity();
-//		setProductCategories(entity, dto.getCategories());
-//		entity = repository.save(entity);
-//		return new ProductDTO(entity);
-//	}
-	
-	public Usuario insert(Usuario obj) {
-		return repository.save(obj);
+	public UsuarioDTO insert(UsuarioInsertDTO dto) {
+		Usuario entity = dto.toEntity();
+		entity.setSenha(passwordEncode.encode(dto.getSenha()));
+		entity = repository.save(entity);
+		return new UsuarioDTO(entity);
 	}
 
 	public void delete(Long id) {
@@ -98,5 +89,14 @@ public class UsuarioService {
 		entity.setNome(dto.getNome());
 		entity.setCpf(dto.getCpf());		
 		entity.setEmail(dto.getEmail());
+	}
+
+	@Override
+	public Usuario loadUserByUsername(String username) throws UsernameNotFoundException {
+		Usuario usuario = repository.findByEmail(username);
+		if(usuario == null) {
+			throw new UsernameNotFoundException(username);
+		}
+		return usuario;
 	}
 }

@@ -30,7 +30,7 @@ public class Especialidade implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(mappedBy="especialidade")
-	private Set<Anuncio> anuncios = new HashSet();
+	private Set<Anuncio> anuncios = new HashSet<>();
 
 	public Especialidade() {
 

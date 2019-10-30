@@ -39,11 +39,11 @@ public class AnuncioResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<AnuncioDTO> insert(@RequestBody AnuncioDTO obj){
-		Anuncio entity = service.insert(obj);
+	public ResponseEntity<AnuncioDTO> insert(@RequestBody AnuncioDTO dto){
+		Anuncio entity = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).body(obj);
+				.buildAndExpand(dto.getId()).toUri();
+		return ResponseEntity.created(uri).body(dto);
 	}
 	
 	@DeleteMapping(value = "/{id}")

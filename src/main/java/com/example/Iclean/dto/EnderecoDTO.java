@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.entities.Usuario;
-import com.fasterxml.jackson.databind.Module.SetupContext;
 
 public class EnderecoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

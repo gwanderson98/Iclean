@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.Iclean.dto.AnuncioDTO;
 import com.example.Iclean.entities.Anuncio;
 import com.example.Iclean.repositories.AnuncioRepository;
-import com.example.Iclean.repositories.UsuarioRepository;
 import com.example.Iclean.services.exceptions.DatabaseException;
 import com.example.Iclean.services.exceptions.ResourceNotFoundException;
 
@@ -23,11 +22,8 @@ import com.example.Iclean.services.exceptions.ResourceNotFoundException;
 public class AnuncioService {
 
 	@Autowired
-	private AnuncioRepository repository;
+	private AnuncioRepository repository;	
 	
-	@Autowired
-	private UsuarioRepository repositoryUsuario;
-
 	public List<AnuncioDTO> findAll() {
 		List<Anuncio> list = repository.findAll();
 		return list.stream().map(e -> new AnuncioDTO(e)).collect(Collectors.toList());
