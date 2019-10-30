@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.Iclean.dto.AnuncioDTO;
-import com.example.Iclean.entities.Anuncio;
 import com.example.Iclean.services.AnuncioService;
 
 @RestController
@@ -40,10 +39,10 @@ public class AnuncioResource {
 	
 	@PostMapping
 	public ResponseEntity<AnuncioDTO> insert(@RequestBody AnuncioDTO dto){
-		Anuncio entity = service.insert(dto);
+		AnuncioDTO newDTO = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(dto.getId()).toUri();
-		return ResponseEntity.created(uri).body(dto);
+				.buildAndExpand(newDTO.getId()).toUri();
+		return ResponseEntity.created(uri).body(newDTO);
 	}
 	
 	@DeleteMapping(value = "/{id}")

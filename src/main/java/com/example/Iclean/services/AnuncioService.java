@@ -35,9 +35,10 @@ public class AnuncioService {
 		return new AnuncioDTO(entity);
 	}
 
-	public Anuncio insert(AnuncioDTO obj) {
-		Anuncio entity = obj.toEntity();
-		return repository.save(entity);
+	public AnuncioDTO insert(AnuncioDTO dto) {
+		Anuncio entity = dto.toEntity();
+		entity = repository.save(entity);
+		return new AnuncioDTO(entity); 
 	}
 
 	public void delete(Long id) {
