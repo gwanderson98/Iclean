@@ -33,6 +33,10 @@ public class Anuncio implements Serializable {
 	private String descricao;
 	private Double preco;
 
+	@ManyToOne
+	@JoinColumn(name = "especialidade_id")
+	private Especialidade especialidade = new Especialidade();
+	
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "prestador_id")
@@ -41,11 +45,7 @@ public class Anuncio implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "anuncio")
 	private List<OrdemServico> ordemServicos = new ArrayList<>();
-//
-	@ManyToOne
-	@JoinColumn(name = "especialidade_id")
-	private Especialidade especialidade = new Especialidade();
-
+	
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "tb_anuncio_palavrachave", joinColumns = @JoinColumn(name = "anuncio_id"), 

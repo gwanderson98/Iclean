@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.Iclean.dto.AnuncioDTO;
 import com.example.Iclean.entities.Anuncio;
 import com.example.Iclean.repositories.AnuncioRepository;
+import com.example.Iclean.repositories.UsuarioRepository;
 import com.example.Iclean.services.exceptions.DatabaseException;
 import com.example.Iclean.services.exceptions.ResourceNotFoundException;
 
@@ -22,7 +23,10 @@ import com.example.Iclean.services.exceptions.ResourceNotFoundException;
 public class AnuncioService {
 
 	@Autowired
-	private AnuncioRepository repository;	
+	private AnuncioRepository repository;
+	
+	@Autowired
+	private UsuarioRepository repositoryUsuario;
 
 	public List<AnuncioDTO> findAll() {
 		List<Anuncio> list = repository.findAll();
@@ -35,8 +39,9 @@ public class AnuncioService {
 		return new AnuncioDTO(entity);
 	}
 
-	public Anuncio insert(Anuncio obj) {
-		return repository.save(obj);
+	public Anuncio insert(AnuncioDTO obj) {
+		Anuncio entity = obj.toEntity();
+		return repository.save(entity);
 	}
 
 	public void delete(Long id) {
@@ -62,7 +67,6 @@ public class AnuncioService {
 	}
 
 	private void updateData(Anuncio entity, AnuncioDTO dto) {
-		entity.setId(dto.getId());
 		entity.setTitulo(dto.getTitulo());
 		entity.setDescricao(dto.getDescricao());
 		entity.setPreco(dto.getPreco());
