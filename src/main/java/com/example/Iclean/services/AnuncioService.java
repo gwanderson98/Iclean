@@ -20,6 +20,9 @@ import com.example.Iclean.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class AnuncioService {
+	
+	@Autowired
+	private AuthService authService;
 
 	@Autowired
 	private AnuncioRepository repository;	
@@ -36,6 +39,7 @@ public class AnuncioService {
 	}
 
 	public AnuncioDTO insert(AnuncioDTO dto) {
+		authService.validateSelf(dto.getUsuarioId());
 		Anuncio entity = dto.toEntity();
 		entity = repository.save(entity);
 		return new AnuncioDTO(entity); 
@@ -53,6 +57,7 @@ public class AnuncioService {
 
 	@Transactional
 	public AnuncioDTO update(Long id, AnuncioDTO dto) {
+		authService.validateSelfOrAdmin(id);
 		try {
 			Anuncio entity = repository.getOne(id);
 			updateData(entity, dto);

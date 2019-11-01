@@ -37,6 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private static final String[] PUBLIC_MATCHERS_POST = { "/usuarios/**", "/auth/**" };
 	
+	private static final String[] PUBLIC_MATCHERS_GET = { "/anuncios/**" };
+	
 	private static final String[] PUBLIC_MATCHERS = { "/h2-console/**" };
 
 	@Override
@@ -49,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.authorizeRequests().antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll();
 		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll();
 		http.authorizeRequests().anyRequest().authenticated();
 		

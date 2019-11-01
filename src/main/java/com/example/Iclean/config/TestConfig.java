@@ -91,7 +91,7 @@ public class TestConfig implements CommandLineRunner {
 		// Anuncio
 		Anuncio anun1 = new Anuncio(null, "Carpintaria na promoção", "Todos os tipos de serviços de carpintaria ao seu alcance", 10.50, u1, esp1);
 		Anuncio anun2 = new Anuncio(null, "Montagem de Moveis na faixa", "Montagens em geral na metade de preço", 11.50, u1, esp1);
-	
+		Anuncio anun3 = new Anuncio(null, "Montagem de Moveis na faixa", "Montagens em geral na metade de preço", 11.50, u2, esp1);
 		//Palavras Chave
 		PalavraChave palChave1 = new PalavraChave(null, "trabalho com madeira");
 		PalavraChave palChave2 = new PalavraChave(null, "moveis em madeira");
@@ -100,7 +100,7 @@ public class TestConfig implements CommandLineRunner {
 		especialidadeRepository.save(esp1);
 		
 		//salvando anuncios
-		anuncioRepository.saveAll(Arrays.asList(anun1, anun2));
+		anuncioRepository.saveAll(Arrays.asList(anun1, anun2, anun3));
 		
 		//salvando palavrasChaves
 		palavraChaveRepository.saveAll(Arrays.asList(palChave1, palChave2));

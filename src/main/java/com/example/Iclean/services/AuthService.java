@@ -68,6 +68,13 @@ private static final Logger LOG = LoggerFactory.getLogger(AuthService.class);
 			throw new JWTAuthorizationException("Acess denied!");
 		}
 	}
+	
+	public void validateSelf(Long userId) {
+		Usuario usuario = authenticated();
+		if(usuario == null  || (!usuario.getId().equals(userId))) {
+			throw new JWTAuthorizationException("Acess denied!");
+		}
+	}
 		
 	public TokenDTO refreshToken() {
 		Usuario usuario = authenticated();
