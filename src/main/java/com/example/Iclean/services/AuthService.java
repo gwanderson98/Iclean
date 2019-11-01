@@ -20,6 +20,7 @@ import com.example.Iclean.entities.Usuario;
 import com.example.Iclean.repositories.UsuarioRepository;
 import com.example.Iclean.security.JWTUtil;
 import com.example.Iclean.services.exceptions.JWTAuthenticationException;
+import com.example.Iclean.services.exceptions.JWTAuthorizationException;
 import com.example.Iclean.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -51,26 +52,23 @@ private static final Logger LOG = LoggerFactory.getLogger(AuthService.class);
 			throw new JWTAuthenticationException("Bad credentials");
 		}
 	}
-
 	
 	public Usuario authenticated() {
 		try {
 			UserDetails userdetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			return userRepository.findByEmail(userdetails.getUsername());
 		} catch (Exception e) {
-			throw new JWTAuthenticationException("Acess denied!");
+			throw new JWTAuthorizationException("Acess denied!");
 		}
 	}
-	
-	
+		
 	public void validateSelfOrAdmin (Long userId) {
 		Usuario usuario = authenticated();
 		if(usuario == null  || (!usuario.getId().equals(userId)) && !usuario.hasRole("ROLE_ADMIN")) {
-			throw new JWTAuthenticationException("Acess denied!");
+			throw new JWTAuthorizationException("Acess denied!");
 		}
 	}
-	
-	
+		
 	public TokenDTO refreshToken() {
 		Usuario usuario = authenticated();
 		return new TokenDTO(usuario.getEmail(), jwtUtil.generateToken(usuario.getEmail()));

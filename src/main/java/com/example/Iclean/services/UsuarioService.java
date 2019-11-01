@@ -35,6 +35,9 @@ public class UsuarioService implements UserDetailsService {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private AuthService authService;
 
 	public List<UsuarioDTO> findAll() {
 		List<Usuario> list = repository.findAll();
@@ -42,6 +45,7 @@ public class UsuarioService implements UserDetailsService {
 	}
 
 	public UsuarioDTO findById(Long id) {
+		authService.validateSelfOrAdmin(id);
 		Optional<Usuario> obj = repository.findById(id);
 		Usuario entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
 		return new UsuarioDTO(entity);
@@ -74,6 +78,7 @@ public class UsuarioService implements UserDetailsService {
 	@Transactional
 	public UsuarioDTO update(Long id, UsuarioDTO dto) {
 		try {
+			authService.validateSelfOrAdmin(id);
 			Usuario entity = repository.getOne(id);
 			updateData(entity, dto);
 			entity = repository.save(entity);
