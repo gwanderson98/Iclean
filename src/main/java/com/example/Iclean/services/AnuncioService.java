@@ -46,6 +46,7 @@ public class AnuncioService {
 	}
 
 	public void delete(Long id) {
+		authService.validateSelfOrAdmin(id);
 		try {
 			repository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
