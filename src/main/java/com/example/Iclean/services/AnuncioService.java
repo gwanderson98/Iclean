@@ -68,6 +68,12 @@ public class AnuncioService {
 			throw new ResourceNotFoundException(id);
 		}
 	}
+	
+	public List<AnuncioDTO> anuncioEspecialidade(AnuncioDTO dto, Long id) {
+		authService.validateSelf(dto.getUsuarioId());
+		
+		return null;
+	}
 
 	private void updateData(Anuncio entity, AnuncioDTO dto) {
 		entity.setTitulo(dto.getTitulo());

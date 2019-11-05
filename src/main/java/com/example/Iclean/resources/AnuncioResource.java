@@ -57,6 +57,12 @@ public class AnuncioResource {
 		return ResponseEntity.ok().body(dto);
 	}
 	
+	@PutMapping(value = "/especialidade/{id}")
+	public ResponseEntity<AnuncioDTO> anuncioEspecialidade( @PathVariable Long id){
+		
+		return null;
+	}
+	
 //	@PutMapping(value = "/{id}/alterarstatus")
 //	public ResponseEntity<AnuncioDTO> updateStatus(@PathVariable Long id, @RequestBody AnuncioDTO dto){
 //		dto = service.update(id, dto);
