@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Iclean.dto.OrdemServicoDTO;
 import com.example.Iclean.entities.OrdemServico;
+import com.example.Iclean.entities.enums.StatusOrdemServico;
 import com.example.Iclean.repositories.OrdemServicoRepository;
 import com.example.Iclean.services.exceptions.DatabaseException;
 import com.example.Iclean.services.exceptions.ResourceNotFoundException;
@@ -61,9 +62,21 @@ public class OrdemServicoService {
 			throw new ResourceNotFoundException(id);
 		}
 	}
+	
+	@Transactional
+	public OrdemServicoDTO cancelar(Long id) {
+		try {
+			OrdemServico entity = repository.getOne(id);
+			entity.setStatus(StatusOrdemServico.CANCELADA);
+			entity = repository.save(entity);
+			return new OrdemServicoDTO(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+	}
 
 	private void updateData(OrdemServico entity, OrdemServicoDTO dto) {
-		entity.setId(dto. getId());
+		entity.setId(dto.getId());
 		entity.setDataInclusao(dto.getDataInclusao());
 		entity.setStatus(dto.getStatus());
 	}
