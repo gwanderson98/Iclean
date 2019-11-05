@@ -75,6 +75,19 @@ public class OrdemServicoService {
 		}
 	}
 
+	@Transactional
+	public OrdemServicoDTO aceitar(Long id) {
+		try {
+			OrdemServico entity = repository.getOne(id);
+			entity.setStatus(StatusOrdemServico.ACEITA);
+			entity = repository.save(entity);
+			return new OrdemServicoDTO(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+	}
+
+	
 	private void updateData(OrdemServico entity, OrdemServicoDTO dto) {
 		entity.setId(dto.getId());
 		entity.setDataInclusao(dto.getDataInclusao());

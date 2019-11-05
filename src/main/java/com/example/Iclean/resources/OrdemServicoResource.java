@@ -63,4 +63,10 @@ public class OrdemServicoResource {
 		OrdemServicoDTO dto = service.cancelar(id);
 		return ResponseEntity.ok().body(dto);
 	}
+	
+	@PutMapping(value = "/{id}/aceitarservico")
+	public ResponseEntity<OrdemServicoDTO> aceitarServico(@PathVariable Long id){
+		OrdemServicoDTO dto = service.aceitar(id);
+		return ResponseEntity.ok().body(dto);
+	}
 }
