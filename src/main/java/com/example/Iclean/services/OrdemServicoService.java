@@ -86,6 +86,18 @@ public class OrdemServicoService {
 			throw new ResourceNotFoundException(id);
 		}
 	}
+	
+	@Transactional
+	public OrdemServicoDTO rejeitar(Long id) {
+		try {
+			OrdemServico entity = repository.getOne(id);
+			entity.setStatus(StatusOrdemServico.REJEITADA);
+			entity = repository.save(entity);
+			return new OrdemServicoDTO(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+	}
 
 	
 	private void updateData(OrdemServico entity, OrdemServicoDTO dto) {
