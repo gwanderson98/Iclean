@@ -30,6 +30,7 @@ public class Anuncio implements Serializable {
 	private String titulo;
 	private String descricao;
 	private Double preco;
+	private Boolean status = true;
 
 	@ManyToOne
 	@JoinColumn(name = "especialidade_id")
@@ -62,6 +63,14 @@ public class Anuncio implements Serializable {
 		this.prestador = prestador;		
 		this.especialidade = especialidade;
 		
+	}
+	
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 	public Long getId() {
