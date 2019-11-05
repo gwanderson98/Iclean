@@ -63,4 +63,22 @@ public class OrdemServicoResource {
 		OrdemServicoDTO dto = service.cancelar(id);
 		return ResponseEntity.ok().body(dto);
 	}
+	
+	@PutMapping(value = "/{id}/aceitarservico")
+	public ResponseEntity<OrdemServicoDTO> aceitarServico(@PathVariable Long id){
+		OrdemServicoDTO dto = service.aceitar(id);
+		return ResponseEntity.ok().body(dto);
+	}
+	
+	@PutMapping(value = "/{id}/rejeitarservico")
+	public ResponseEntity<OrdemServicoDTO> rejeitarServico(@PathVariable Long id){
+		OrdemServicoDTO dto = service.rejeitar(id);
+		return ResponseEntity.ok().body(dto);
+	}
+	
+	@PutMapping(value = "/{id}/concluirservico")
+	public ResponseEntity<OrdemServicoDTO> concluirServico(@PathVariable Long id){
+		OrdemServicoDTO dto = service.concluir(id);
+		return ResponseEntity.ok().body(dto);
+	}
 }
