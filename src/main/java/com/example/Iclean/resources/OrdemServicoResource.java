@@ -81,4 +81,10 @@ public class OrdemServicoResource {
 		OrdemServicoDTO dto = service.concluir(id);
 		return ResponseEntity.ok().body(dto);
 	}
+	
+	@PutMapping(value = "/{id}/avaliarcliente")
+	public ResponseEntity<OrdemServicoDTO> avaliarCliente(@PathVariable Long id, @RequestBody int avaliacao){
+		OrdemServicoDTO dto = service.avaliarcliente(id, avaliacao);
+		return ResponseEntity.ok().body(dto);
+	}
 }
