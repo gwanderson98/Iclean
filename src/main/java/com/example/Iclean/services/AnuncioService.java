@@ -1,5 +1,6 @@
 package com.example.Iclean.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,7 +26,8 @@ public class AnuncioService {
 	private AuthService authService;
 
 	@Autowired
-	private AnuncioRepository repository;	
+	private AnuncioRepository repository;
+	
 	
 	public List<AnuncioDTO> findAll() {
 		List<Anuncio> list = repository.findAll();
@@ -68,6 +70,17 @@ public class AnuncioService {
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
+	}
+	
+	public List<AnuncioDTO> anuncioEspecialidade(Long id) {
+		List<Anuncio> list = repository.findAll();
+		List<Anuncio> listCerto = new ArrayList<>();
+		for (Anuncio anuncio : list) {
+			if(anuncio.getEspecialidade().getId() == id) {
+				listCerto.add(anuncio);
+			}
+		}
+		return listCerto.stream().map(e -> new AnuncioDTO(e)).collect(Collectors.toList());
 	}
 
 	private void updateData(Anuncio entity, AnuncioDTO dto) {
