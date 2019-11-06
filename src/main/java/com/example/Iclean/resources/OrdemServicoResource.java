@@ -81,4 +81,16 @@ public class OrdemServicoResource {
 		OrdemServicoDTO dto = service.concluir(id);
 		return ResponseEntity.ok().body(dto);
 	}
+	
+	@PutMapping(value = "/{id}/avaliarcliente")
+	public ResponseEntity<OrdemServicoDTO> avaliarCliente(@PathVariable Long id, @RequestBody int avaliacao){
+		OrdemServicoDTO dto = service.avaliarcliente(id, avaliacao);
+		return ResponseEntity.ok().body(dto);
+	}
+	
+	@PutMapping(value = "/{id}/avaliarprestador")
+	public ResponseEntity<OrdemServicoDTO> avaliarPrestador(@PathVariable Long id, @RequestBody int avaliacao){
+		OrdemServicoDTO dto = service.avaliarprestador(id, avaliacao);
+		return ResponseEntity.ok().body(dto);
+	}
 }
