@@ -33,7 +33,6 @@ public class AnuncioService {
 	}
 
 	public AnuncioDTO findById(Long id) {
-		authService.validateSelfOrAdmin(id);
 		Optional<Anuncio> obj = repository.findById(id);
 		Anuncio entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
 		return new AnuncioDTO(entity);
