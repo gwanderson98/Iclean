@@ -23,6 +23,9 @@ import com.example.Iclean.services.exceptions.ResourceNotFoundException;
 public class OrdemServicoService {
 
 	@Autowired
+	private AuthService authService;
+	
+	@Autowired
 	private OrdemServicoRepository repository;
 	
 
@@ -67,6 +70,7 @@ public class OrdemServicoService {
 	public OrdemServicoDTO cancelar(Long id) {
 		try {
 			OrdemServico entity = repository.getOne(id);
+			authService.validateSelf(entity.getAnuncio().getPrestador().getId());
 			entity.setStatus(StatusOrdemServico.CANCELADA);
 			entity = repository.save(entity);
 			return new OrdemServicoDTO(entity);
@@ -79,6 +83,7 @@ public class OrdemServicoService {
 	public OrdemServicoDTO aceitar(Long id) {
 		try {
 			OrdemServico entity = repository.getOne(id);
+			authService.validateSelf(entity.getAnuncio().getPrestador().getId());
 			entity.setStatus(StatusOrdemServico.ACEITA);
 			entity = repository.save(entity);
 			return new OrdemServicoDTO(entity);
@@ -91,6 +96,7 @@ public class OrdemServicoService {
 	public OrdemServicoDTO rejeitar(Long id) {
 		try {
 			OrdemServico entity = repository.getOne(id);
+			authService.validateSelf(entity.getAnuncio().getPrestador().getId());
 			entity.setStatus(StatusOrdemServico.REJEITADA);
 			entity = repository.save(entity);
 			return new OrdemServicoDTO(entity);
@@ -103,6 +109,7 @@ public class OrdemServicoService {
 	public OrdemServicoDTO concluir(Long id) {
 		try {
 			OrdemServico entity = repository.getOne(id);
+			authService.validateSelf(entity.getAnuncio().getPrestador().getId());
 			entity.setStatus(StatusOrdemServico.CONCLUIDA);
 			entity = repository.save(entity);
 			return new OrdemServicoDTO(entity);
