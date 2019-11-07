@@ -79,8 +79,12 @@ public class Usuario implements UserDetails {
 		this.cpf = entity.getCpf();
 		this.senha = entity.getSenha();
 		this.email = entity.getEmail();
-	}	
-
+	}
+	
+	public List<Anuncio> getAnuncios() {
+		return anuncios;
+	}
+	
 	public Long getId() {
 		return id;
 	}

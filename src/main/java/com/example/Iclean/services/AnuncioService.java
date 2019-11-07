@@ -31,7 +31,13 @@ public class AnuncioService {
 	
 	public List<AnuncioDTO> findAll() {
 		List<Anuncio> list = repository.findAll();
-		return list.stream().map(e -> new AnuncioDTO(e)).collect(Collectors.toList());
+		List<Anuncio> listCerto = new ArrayList<>();
+		for (Anuncio anuncio : list) {
+			if(anuncio.getStatus() == true) {
+				listCerto.add(anuncio);
+			}
+		}
+		return listCerto.stream().map(e -> new AnuncioDTO(e)).collect(Collectors.toList());
 	}
 
 	public AnuncioDTO findById(Long id) {

@@ -62,7 +62,7 @@ public class AnuncioResource {
 		List<AnuncioDTO> list = service.anuncioEspecialidade(id);
 		return ResponseEntity.ok().body(list);
 	}
-	
+
 	@PutMapping(value = "/{id}/alterarstatus")
 	public ResponseEntity<Void> updateStatus(@PathVariable Long id){
 		service.alterarStatus(id);

@@ -14,19 +14,22 @@ public class AnuncioDTO implements Serializable{
 	private String titulo;
 	private String descricao;
 	private Double preco;
+	private Boolean status;
 	private Long usuarioId;
 	private Long especialidadeId;
+	
 		
 	public AnuncioDTO() {
 		
 	}
 	
-	public AnuncioDTO(Long id, String titulo, String descricao, Double preco, Long usuarioId, Long especialidadeId) {
+	public AnuncioDTO(Long id, String titulo, String descricao, Double preco, Boolean status, Long usuarioId, Long especialidadeId) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.preco = preco;
+		this.status = status;
 		this.usuarioId = usuarioId;
 		this.especialidadeId = especialidadeId;
 	}
@@ -36,6 +39,7 @@ public class AnuncioDTO implements Serializable{
 		this.titulo = entity.getTitulo();
 		this.descricao = entity.getDescricao();
 		this.preco = entity.getPreco();	
+		this.status = entity.getStatus();
 		this.usuarioId = entity.getPrestador().getId();
 		this.especialidadeId = entity.getEspecialidade().getId();
 	}
@@ -54,6 +58,14 @@ public class AnuncioDTO implements Serializable{
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 	public String getDescricao() {
@@ -93,6 +105,6 @@ public class AnuncioDTO implements Serializable{
 		usuario.setId(usuarioId);
 		Especialidade especialidade = new Especialidade();
 		especialidade.setId(especialidadeId);
-		return new Anuncio(id, titulo, descricao, preco, usuario, especialidade);
+		return new Anuncio(id, titulo, descricao, preco, status, usuario, especialidade);
 	}
 }

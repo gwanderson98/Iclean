@@ -55,11 +55,12 @@ public class Anuncio implements Serializable {
 
 	}
 
-	public Anuncio(Long id, String titulo, String descricao, Double preco, Usuario prestador, Especialidade especialidade) {	
+	public Anuncio(Long id, String titulo, String descricao, Double preco, Boolean status, Usuario prestador, Especialidade especialidade) {	
 		this.id = id;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.preco = preco;
+		this.status = status;
 		this.prestador = prestador;		
 		this.especialidade = especialidade;
 		

@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.Iclean.dto.AnuncioDTO;
 import com.example.Iclean.dto.UsuarioDTO;
 import com.example.Iclean.dto.UsuarioInsertDTO;
+import com.example.Iclean.entities.Anuncio;
 import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.services.UsuarioService;
 
@@ -63,5 +65,11 @@ public class UsuarioResource {
 	public ResponseEntity<UsuarioDTO> update(@PathVariable Long id, @RequestBody UsuarioDTO dto){
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
+	}
+	
+	@GetMapping(value = "/{id}/anuncios")
+	public ResponseEntity<List<AnuncioDTO>> findAnuncios(@PathVariable Long id){
+		List<AnuncioDTO> list = service.findAnuncios(id);
+		return ResponseEntity.ok().body(list);
 	}
 }
