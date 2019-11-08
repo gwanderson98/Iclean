@@ -46,7 +46,7 @@ public class EnderecoDTO implements Serializable {
 		setCidade(entity.getCidade());
 		setEstado(entity.getEstado());
 		setCep(entity.getCep());
-		setUsuarioId(entity.getUsuario().getId());
+		setUsuarioId(entity.getUsuario().getId()); 
 	}
 	
 	public Long getId() {
