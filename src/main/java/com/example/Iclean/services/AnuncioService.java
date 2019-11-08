@@ -15,7 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Iclean.dto.AnuncioDTO;
 import com.example.Iclean.entities.Anuncio;
+import com.example.Iclean.entities.PalavraChave;
 import com.example.Iclean.repositories.AnuncioRepository;
+import com.example.Iclean.repositories.PalavraChaveRepository;
 import com.example.Iclean.services.exceptions.DatabaseException;
 import com.example.Iclean.services.exceptions.ResourceNotFoundException;
 
@@ -27,6 +29,9 @@ public class AnuncioService {
 
 	@Autowired
 	private AnuncioRepository repository;	
+	
+	@Autowired
+	private PalavraChaveRepository palavraRepository;
 	
 	public List<AnuncioDTO> findAll() {
 		List<Anuncio> list = repository.findAll();
@@ -86,6 +91,19 @@ public class AnuncioService {
 		}
 		return listCerto.stream().map(e -> new AnuncioDTO(e)).collect(Collectors.toList());
 	}
+	
+	public List<AnuncioDTO> anuncioPalavraChave(String palavra) {
+		List<PalavraChave> listPalavras = palavraRepository.findAll();
+		List<Anuncio> listAnuncios = new ArrayList<>();
+		for(PalavraChave palavraChave : listPalavras) {
+			if(palavraChave.getTexto().toLowerCase().contains(palavra.toLowerCase())) {
+				listAnuncios.addAll(palavraChave.getAnuncios());
+			}
+		}
+		return listAnuncios.stream().map(e -> new AnuncioDTO(e)).collect(Collectors.toList());
+	}
+	
+	
 
 	private void updateData(Anuncio entity, AnuncioDTO dto) {
 		entity.setTitulo(dto.getTitulo());
@@ -100,4 +118,5 @@ public class AnuncioService {
 		entity.setStatus(!entity.getStatus());
 		entity = repository.save(entity);
 	}
+
 }
