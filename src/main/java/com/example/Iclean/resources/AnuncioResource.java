@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.Iclean.dto.AnuncioDTO;
+import com.example.Iclean.entities.PalavraChave;
 import com.example.Iclean.services.AnuncioService;
 
 @RestController
@@ -35,6 +36,12 @@ public class AnuncioResource {
 	public ResponseEntity<AnuncioDTO> findById(@PathVariable Long id){
 		AnuncioDTO obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping(value = "/{id}/palavraschaves")
+	public ResponseEntity<List<PalavraChave>> findPalavrasChaves(@PathVariable Long id){
+		List<PalavraChave> list = service.findPalavrasChaves(id);
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@PostMapping

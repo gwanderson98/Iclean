@@ -43,6 +43,13 @@ public class AnuncioService {
 		}
 		return listCerto.stream().map(e -> new AnuncioDTO(e)).collect(Collectors.toList());
 	}
+	
+	@Transactional(readOnly = true)
+	public List<PalavraChave> findPalavrasChaves(Long id) {		
+		Optional<Anuncio> obj = repository.findById(id);
+		Anuncio entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		return palavraRepository.findByAnuncio(entity);
+	}
 
 	public AnuncioDTO findById(Long id) {
 		Optional<Anuncio> obj = repository.findById(id);
@@ -97,7 +104,7 @@ public class AnuncioService {
 		List<Anuncio> listAnuncios = new ArrayList<>();
 		for(PalavraChave palavraChave : listPalavras) {
 			if(palavraChave.getTexto().toLowerCase().contains(palavra.toLowerCase())) {
-				listAnuncios.addAll(palavraChave.getAnuncios());
+				listAnuncios.add(palavraChave.getAnuncio());
 			}
 		}
 		return listAnuncios.stream().map(e -> new AnuncioDTO(e)).collect(Collectors.toList());

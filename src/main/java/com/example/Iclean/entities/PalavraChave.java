@@ -10,7 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,6 +26,12 @@ public class PalavraChave implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String texto;
+
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "anuncio_id")	
+	private Anuncio anuncio = new Anuncio();
+	
 	
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, 
@@ -38,10 +46,16 @@ public class PalavraChave implements Serializable{
 		
 	}
 	
-	public PalavraChave(Long id, String texto) {
+	public PalavraChave(Long id, String texto, Anuncio anuncio) {
 		super();
 		this.id = id;
 		this.texto = texto;
+		this.anuncio = anuncio;
+	}
+	
+	public PalavraChave(PalavraChave entity) {
+		setId(entity.getId());
+		setTexto(entity.getTexto());
 	}
 
 	public Long getId() {
@@ -60,8 +74,12 @@ public class PalavraChave implements Serializable{
 		this.texto = texto;
 	}
 	
-	public Set<Anuncio> getAnuncios() {
-		return anuncios;
+	public Anuncio getAnuncio() {
+		return anuncio;
+	}
+
+	public void setAnuncio(Anuncio anuncio) {
+		this.anuncio = anuncio;
 	}
 
 	@Override
@@ -69,7 +87,6 @@ public class PalavraChave implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((texto == null) ? 0 : texto.hashCode());
 		return result;
 	}
 
@@ -87,11 +104,8 @@ public class PalavraChave implements Serializable{
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (texto == null) {
-			if (other.texto != null)
-				return false;
-		} else if (!texto.equals(other.texto))
-			return false;
 		return true;
 	}
+
+
 }

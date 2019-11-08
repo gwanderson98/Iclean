@@ -21,8 +21,6 @@ public class EnderecoDTO implements Serializable {
 
 	}
 
-	
-
 	public EnderecoDTO(Long id, String logradouro, Integer numero, String complemento, String cidade, String estado,
 			String cep, Long usuarioId) {
 		super();

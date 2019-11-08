@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.Iclean.dto.EnderecoDTO;
 import com.example.Iclean.dto.PalavraChaveDTO;
 import com.example.Iclean.entities.PalavraChave;
 import com.example.Iclean.services.PalavraChaveService;

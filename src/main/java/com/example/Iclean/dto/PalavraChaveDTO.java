@@ -2,6 +2,7 @@ package com.example.Iclean.dto;
 
 import java.io.Serializable;
 
+import com.example.Iclean.entities.Anuncio;
 import com.example.Iclean.entities.PalavraChave;
 
 public class PalavraChaveDTO implements Serializable {
@@ -9,20 +10,22 @@ public class PalavraChaveDTO implements Serializable {
 
 	private Long id;
 	private String texto;
+	private Long anuncioId;
 
 	public PalavraChaveDTO() {
 
 	}
 
-	public PalavraChaveDTO(Long id, String texto) {
+	public PalavraChaveDTO(Long id, String texto, Long anuncioId) {
 		this.id = id;
 		this.texto = texto;
+		this.anuncioId = anuncioId;
 	}
 
-	public PalavraChaveDTO(PalavraChaveDTO entity) {
-		super();
-		this.id = entity.getId();
-		this.texto = entity.getTexto();
+	public PalavraChaveDTO(PalavraChave entity) {
+		setId(entity.getId());
+		setTexto(entity.getTexto());
+		setAnuncioId(anuncioId);
 	}
 
 	public Long getId() {
@@ -40,13 +43,18 @@ public class PalavraChaveDTO implements Serializable {
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
+	
+	public Long getAnuncioId() {
+		return anuncioId;
+	}
 
-	public PalavraChaveDTO(PalavraChave entity) {
-		this.id = entity.getId();
-		this.texto = entity.getTexto();
+	public void setAnuncioId(Long anuncioId) {
+		this.anuncioId = anuncioId;
 	}
 
 	public PalavraChave toEntity() {
-		return new PalavraChave(id, texto);
+		Anuncio anuncio = new Anuncio();
+		anuncio.setId(anuncioId);
+		return new PalavraChave(id, texto, anuncio);
 	}
 }

@@ -26,6 +26,7 @@ public class PalavraChaveService {
 	
 
 	public List<PalavraChaveDTO> findAll() {
+		
 		List<PalavraChave> list = repository.findAll();
 		return list.stream().map(e -> new PalavraChaveDTO(e)).collect(Collectors.toList());
 	}
