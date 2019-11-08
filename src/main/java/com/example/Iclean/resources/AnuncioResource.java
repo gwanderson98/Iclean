@@ -62,6 +62,12 @@ public class AnuncioResource {
 		List<AnuncioDTO> list = service.anuncioEspecialidade(id);
 		return ResponseEntity.ok().body(list);
 	}
+	
+	@GetMapping(value = "/palavrachave/{palavra}")
+	public ResponseEntity<List<AnuncioDTO>> anuncioPalavraChave( @PathVariable("palavra") String palavra){
+		List<AnuncioDTO> list = service.anuncioPalavraChave(palavra);
+		return ResponseEntity.ok().body(list); 
+	}
 
 	@PutMapping(value = "/{id}/alterarstatus")
 	public ResponseEntity<Void> updateStatus(@PathVariable Long id){
