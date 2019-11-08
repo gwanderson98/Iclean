@@ -116,9 +116,7 @@ public class TestConfig implements CommandLineRunner {
 		
 		u1.getEspecialidades().add(esp1);
 		
-		//usuarioRepository.saveAll(Arrays.asList(u1));
-		
-		
+		//		
 		OrdemServico ord1 = new OrdemServico(null, Date.from(Instant.now()) , StatusOrdemServico.ABERTA, 0, 0, u1, e1, anun1);
 		OrdemServico ord2 = new OrdemServico(null, Date.from(Instant.now()) , StatusOrdemServico.CONCLUIDA, 10, 10, u2, e2, anun2);
 		
