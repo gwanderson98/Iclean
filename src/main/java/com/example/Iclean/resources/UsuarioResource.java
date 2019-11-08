@@ -18,7 +18,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.Iclean.dto.AnuncioDTO;
 import com.example.Iclean.dto.UsuarioDTO;
 import com.example.Iclean.dto.UsuarioInsertDTO;
-import com.example.Iclean.entities.Anuncio;
 import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.services.UsuarioService;
 

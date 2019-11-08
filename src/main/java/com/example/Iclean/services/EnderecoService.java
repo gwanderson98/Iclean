@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Iclean.dto.EnderecoDTO;
 import com.example.Iclean.entities.Endereco;
+import com.example.Iclean.entities.Usuario;
 import com.example.Iclean.repositories.EnderecoRepository;
 import com.example.Iclean.services.exceptions.DatabaseException;
 import com.example.Iclean.services.exceptions.ResourceNotFoundException;
@@ -22,24 +23,38 @@ import com.example.Iclean.services.exceptions.ResourceNotFoundException;
 public class EnderecoService {
 
 	@Autowired
-	private EnderecoRepository repository;
+	private AuthService authService;
 	
+	@Autowired
+	private EnderecoRepository repository;	
 
 	public List<EnderecoDTO> findAll() {
+		
 		List<Endereco> list = repository.findAll();
 		return list.stream().map(e -> new EnderecoDTO(e)).collect(Collectors.toList());
 	}
 
-	public EnderecoDTO findById(Long id) {
+	public EnderecoDTO findById(Long id) {		
 		Optional<Endereco> obj = repository.findById(id);
 		Endereco entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		authService.validateOwnEndereco(entity);
 		return new EnderecoDTO(entity);
 	}
 
 	@Transactional
-	public Endereco insert(Endereco obj) {
-		return repository.save(obj);
+	public EnderecoDTO insert(EnderecoDTO dto) {
+		authService.validateSelf(dto.getUsuarioId());
+		Endereco entity = dto.toEntity();
+		entity = repository.save(entity);
+		return new EnderecoDTO(entity); 
 	}
+	
+	public List<EnderecoDTO> findByUsuario() {
+		Usuario client =  authService.authenticated();
+		List<Endereco> list = repository.findByUsuario(client);
+		return list.stream().map(e -> new EnderecoDTO(e)).collect(Collectors.toList());
+	}
+	
 
 	public void delete(Long id) {
 		try {
@@ -49,10 +64,11 @@ public class EnderecoService {
 		} catch (DataIntegrityViolationException e) {
 			throw new DatabaseException(e.getMessage());
 		}
-	}
+	}	
 
 	@Transactional
 	public EnderecoDTO update(Long id, EnderecoDTO dto) {
+		authService.validateSelf(dto.getUsuarioId());
 		try {
 			Endereco entity = repository.getOne(id);
 			updateData(entity, dto);

@@ -26,8 +26,7 @@ public class AnuncioService {
 	private AuthService authService;
 
 	@Autowired
-	private AnuncioRepository repository;
-	
+	private AnuncioRepository repository;	
 	
 	public List<AnuncioDTO> findAll() {
 		List<Anuncio> list = repository.findAll();

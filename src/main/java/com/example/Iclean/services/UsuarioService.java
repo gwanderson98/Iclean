@@ -20,7 +20,6 @@ import com.example.Iclean.dto.UsuarioDTO;
 import com.example.Iclean.dto.UsuarioInsertDTO;
 import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.entities.Usuario;
-import com.example.Iclean.repositories.AnuncioRepository;
 import com.example.Iclean.repositories.EnderecoRepository;
 import com.example.Iclean.repositories.UsuarioRepository;
 import com.example.Iclean.services.exceptions.DatabaseException;
@@ -37,9 +36,6 @@ public class UsuarioService implements UserDetailsService {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-	
-	@Autowired
-	private AnuncioRepository repositoryAnuncios;
 	
 	@Autowired
 	private AuthService authService;

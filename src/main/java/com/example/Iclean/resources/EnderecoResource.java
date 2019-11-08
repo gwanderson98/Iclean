@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.Iclean.dto.EnderecoDTO;
-import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.services.EnderecoService;
 
 @RestController
@@ -38,12 +37,18 @@ public class EnderecoResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@GetMapping(value="/meusenderecos")
+	public ResponseEntity<List<EnderecoDTO>> findByUsuario(){
+		List<EnderecoDTO> list = service.findByUsuario();
+		return ResponseEntity.ok().body(list);
+	}
+	
 	@PostMapping
-	public ResponseEntity<Endereco> insert(@RequestBody Endereco obj){
-		obj = service.insert(obj);
+	public ResponseEntity<EnderecoDTO> insert(@RequestBody EnderecoDTO dto){
+		EnderecoDTO newDTO = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).body(obj);
+				.buildAndExpand(newDTO.getId()).toUri();
+		return ResponseEntity.created(uri).body(newDTO);
 	}
 	
 	@DeleteMapping(value = "/{id}")

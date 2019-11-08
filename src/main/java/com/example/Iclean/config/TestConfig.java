@@ -68,10 +68,12 @@ public class TestConfig implements CommandLineRunner {
 
 		Endereco e1 = new Endereco(null, "Avenida Para ", 100, "Medicina", "Uberlandia", "MG", "38400000", u1);
 		Endereco e2 = new Endereco(null, "Rua Afonso Pena", 101, "Porto Alegre", "Uberlandia", "MG", "38411068", u1);
+		Endereco e3 = new Endereco(null, "Rua Teste", 301, "asdadasd", "Uberlandia", "MG", "38411078", u2);
+
 
 		// salvando endereço
 		usuarioRepository.saveAll(Arrays.asList(u1, u2));
-		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
 		
 		//Permissões
 		Role perm1 = new Role(null, "ROLE_CLIENT");

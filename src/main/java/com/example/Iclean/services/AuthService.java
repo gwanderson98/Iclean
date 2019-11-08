@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Iclean.dto.CredentialsDTO;
 import com.example.Iclean.dto.TokenDTO;
+import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.entities.Usuario;
 import com.example.Iclean.repositories.UsuarioRepository;
 import com.example.Iclean.security.JWTUtil;
@@ -72,6 +73,13 @@ private static final Logger LOG = LoggerFactory.getLogger(AuthService.class);
 	public void validateSelf(Long userId) {
 		Usuario usuario = authenticated();
 		if(usuario == null  || (!usuario.getId().equals(userId))) {
+			throw new JWTAuthorizationException("Acess denied!");
+		}
+	}
+	
+	public void validateOwnEndereco(Endereco endereco) {
+		Usuario usuario = authenticated();
+		if(usuario == null  || (!usuario.getId().equals(endereco.getUsuario().getId()))) {
 			throw new JWTAuthorizationException("Acess denied!");
 		}
 	}
