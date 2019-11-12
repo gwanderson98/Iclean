@@ -10,6 +10,8 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,30 +25,37 @@ import com.example.Iclean.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class AnuncioService {
-	
+
 	@Autowired
 	private AuthService authService;
 
 	@Autowired
-	private AnuncioRepository repository;	
-	
+	private AnuncioRepository repository;
+
 	@Autowired
 	private PalavraChaveRepository palavraRepository;
-	//pesquisar por palavra do anuncio && descrição
-	//paginação
+
+	// pesquisar por palavra do anuncio && descrição
+	// paginação
 	public List<AnuncioDTO> findAll() {
 		List<Anuncio> list = repository.findAll();
 		List<Anuncio> listCerto = new ArrayList<>();
 		for (Anuncio anuncio : list) {
-			if(anuncio.getStatus() == true) {
+			if (anuncio.getStatus() == true) {
 				listCerto.add(anuncio);
 			}
 		}
 		return listCerto.stream().map(e -> new AnuncioDTO(e)).collect(Collectors.toList());
 	}
-	
+
+	public Page<AnuncioDTO> findAllPaged(Pageable pageable) {
+
+		Page<Anuncio> list = repository.findAll(pageable);
+		return list.map(e -> new AnuncioDTO(e));
+	}
+
 	@Transactional(readOnly = true)
-	public List<PalavraChave> findPalavrasChaves(Long id) {		
+	public List<PalavraChave> findPalavrasChaves(Long id) {
 		Optional<Anuncio> obj = repository.findById(id);
 		Anuncio entity = obj.orElseThrow(() -> new ResourceNotFoundException(id));
 		return palavraRepository.findByAnuncio(entity);
@@ -62,7 +71,7 @@ public class AnuncioService {
 		authService.validateSelf(dto.getUsuarioId());
 		Anuncio entity = dto.toEntity();
 		entity = repository.save(entity);
-		return new AnuncioDTO(entity); 
+		return new AnuncioDTO(entity);
 	}
 
 	public void delete(Long id) {
@@ -88,30 +97,28 @@ public class AnuncioService {
 			throw new ResourceNotFoundException(id);
 		}
 	}
-	
+
 	public List<AnuncioDTO> anuncioEspecialidade(Long id) {
 		List<Anuncio> list = repository.findAll();
 		List<Anuncio> listCerto = new ArrayList<>();
 		for (Anuncio anuncio : list) {
-			if(anuncio.getEspecialidade().getId() == id) {
+			if (anuncio.getEspecialidade().getId() == id) {
 				listCerto.add(anuncio);
 			}
 		}
 		return listCerto.stream().map(e -> new AnuncioDTO(e)).collect(Collectors.toList());
 	}
-	
+
 	public List<AnuncioDTO> anuncioPalavraChave(String palavra) {
 		List<PalavraChave> listPalavras = palavraRepository.findAll();
 		List<Anuncio> listAnuncios = new ArrayList<>();
-		for(PalavraChave palavraChave : listPalavras) {
-			if(palavraChave.getTexto().toLowerCase().contains(palavra.toLowerCase())) {
+		for (PalavraChave palavraChave : listPalavras) {
+			if (palavraChave.getTexto().toLowerCase().contains(palavra.toLowerCase())) {
 				listAnuncios.add(palavraChave.getAnuncio());
 			}
 		}
 		return listAnuncios.stream().map(e -> new AnuncioDTO(e)).collect(Collectors.toList());
 	}
-	
-	
 
 	private void updateData(Anuncio entity, AnuncioDTO dto) {
 		entity.setTitulo(dto.getTitulo());
