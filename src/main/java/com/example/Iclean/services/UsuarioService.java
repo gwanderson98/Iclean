@@ -104,7 +104,7 @@ public class UsuarioService implements UserDetailsService {
 		}
 		return usuario;
 	}
-	
+	//passar para anuncio
 	@Transactional(readOnly = true)
 	public List<AnuncioDTO> findAnuncios(Long id) {
 		Optional<Usuario> obj = repository.findById(id);

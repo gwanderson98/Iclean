@@ -9,6 +9,8 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,10 +30,10 @@ public class EnderecoService {
 	@Autowired
 	private EnderecoRepository repository;	
 
-	public List<EnderecoDTO> findAll() {
+	public Page<EnderecoDTO> findAllPaged(Pageable pageable) {
 		
-		List<Endereco> list = repository.findAll();
-		return list.stream().map(e -> new EnderecoDTO(e)).collect(Collectors.toList());
+		Page<Endereco> list = repository.findAll(pageable);
+		return list.map(e -> new EnderecoDTO(e));
 	}
 
 	public EnderecoDTO findById(Long id) {		

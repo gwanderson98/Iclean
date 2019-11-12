@@ -32,7 +32,8 @@ public class AnuncioService {
 	
 	@Autowired
 	private PalavraChaveRepository palavraRepository;
-	
+	//pesquisar por palavra do anuncio && descrição
+	//paginação
 	public List<AnuncioDTO> findAll() {
 		List<Anuncio> list = repository.findAll();
 		List<Anuncio> listCerto = new ArrayList<>();
@@ -77,7 +78,7 @@ public class AnuncioService {
 
 	@Transactional
 	public AnuncioDTO update(Long id, AnuncioDTO dto) {
-		authService.validateSelfOrAdmin(id);
+		authService.validateSelfOrAdmin(dto.getUsuarioId());
 		try {
 			Anuncio entity = repository.getOne(id);
 			updateData(entity, dto);
