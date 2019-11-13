@@ -30,21 +30,16 @@ public class AnuncioResource {
 	@Autowired
 	private AnuncioService service;
 	
-//	@GetMapping
-//	public ResponseEntity<List<AnuncioDTO>> findAll(){
-//		List<AnuncioDTO> list = service.findAll();
-//		return ResponseEntity.ok().body(list);
-//	}
-	
 	@GetMapping
 	public ResponseEntity<Page<AnuncioDTO>> findAllPaged(
 			@RequestParam(value="page", defaultValue = "0") Integer page,
 			@RequestParam(value="linePerPage", defaultValue = "2") Integer linePerPage,
+			@RequestParam(value="status", defaultValue = "true") Boolean status,
 			@RequestParam(value="orderBy", defaultValue = "titulo") String orderBy,
 			@RequestParam(value="direction", defaultValue = "ASC") String direction			
 			){
-		PageRequest pageRequest = PageRequest.of(page, linePerPage, Direction.valueOf(direction), orderBy);		
-		Page<AnuncioDTO> list = service.findAllPaged(pageRequest);
+		PageRequest pageRequest = PageRequest.of(page, linePerPage, Direction.valueOf(direction), orderBy);
+		Page<AnuncioDTO> list = service.findAllPaged(pageRequest, status);
 		return ResponseEntity.ok().body(list);
 	}
 	

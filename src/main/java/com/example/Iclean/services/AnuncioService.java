@@ -35,22 +35,13 @@ public class AnuncioService {
 	@Autowired
 	private PalavraChaveRepository palavraRepository;
 
-	// pesquisar por palavra do anuncio && descrição
-	// paginação
-	public List<AnuncioDTO> findAll() {
-		List<Anuncio> list = repository.findAll();
-		List<Anuncio> listCerto = new ArrayList<>();
-		for (Anuncio anuncio : list) {
-			if (anuncio.getStatus() == true) {
-				listCerto.add(anuncio);
-			}
+	public Page<AnuncioDTO> findAllPaged(Pageable pageable, Boolean status) {
+		Page<Anuncio> list;
+		if(status) {
+			list = repository.findAllByAtivo(pageable);
+		}else {
+			list = repository.findAll(pageable);
 		}
-		return listCerto.stream().map(e -> new AnuncioDTO(e)).collect(Collectors.toList());
-	}
-
-	public Page<AnuncioDTO> findAllPaged(Pageable pageable) {
-
-		Page<Anuncio> list = repository.findAll(pageable);
 		return list.map(e -> new AnuncioDTO(e));
 	}
 
