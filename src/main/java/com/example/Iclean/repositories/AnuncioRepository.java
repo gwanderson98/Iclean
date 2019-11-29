@@ -18,7 +18,7 @@ public interface AnuncioRepository extends JpaRepository<Anuncio, Long>{
 	Page<Anuncio> findAllByAtivo(Pageable pageable);
 	
 	@Transactional(readOnly = true)
-	@Query("SELECT DISTINCT a FROM Anuncio a WHERE a.titulo LIKE '%palavra%'")
+	@Query("SELECT DISTINCT a FROM Anuncio a WHERE a.titulo LIKE %:palavra%")
 	Page<Anuncio> findByTitulo(String palavra, Pageable pageable);
 
 }

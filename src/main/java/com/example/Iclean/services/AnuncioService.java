@@ -114,7 +114,7 @@ public class AnuncioService {
 	
 	public Page<AnuncioDTO> anuncioTitulo(String palavra,Pageable pageable) {
 		Page<Anuncio> list;
-		if(palavra != "") {
+		if(palavra.equals("")) {
 			list = repository.findAll(pageable);
 		}else {
 			list = repository.findByTitulo(palavra,pageable);

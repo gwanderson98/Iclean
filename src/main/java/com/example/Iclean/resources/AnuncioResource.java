@@ -33,7 +33,7 @@ public class AnuncioResource {
 	@GetMapping
 	public ResponseEntity<Page<AnuncioDTO>> findAllPaged(
 			@RequestParam(value="page", defaultValue = "0") Integer page,
-			@RequestParam(value="linePerPage", defaultValue = "2") Integer linePerPage,
+			@RequestParam(value="linePerPage", defaultValue = "10") Integer linePerPage,
 			@RequestParam(value="status", defaultValue = "true") Boolean status,
 			@RequestParam(value="orderBy", defaultValue = "titulo") String orderBy,
 			@RequestParam(value="direction", defaultValue = "ASC") String direction			
@@ -87,11 +87,11 @@ public class AnuncioResource {
 		return ResponseEntity.ok().body(list); 
 	}
 	
-	@GetMapping(value = "/titulo/{palavra}")
+	@GetMapping(value = "/titulo")
 	public ResponseEntity<Page<AnuncioDTO>> anuncioTitulo(
-			@PathVariable("palavra") String palavra,
+			@RequestParam(value ="palavra", defaultValue = "") String palavra,
 			@RequestParam(value="page", defaultValue = "0") Integer page,
-			@RequestParam(value="linePerPage", defaultValue = "2") Integer linePerPage,
+			@RequestParam(value="linePerPage", defaultValue = "10") Integer linePerPage,
 			@RequestParam(value="status", defaultValue = "true") Boolean status,
 			@RequestParam(value="orderBy", defaultValue = "titulo") String orderBy,
 			@RequestParam(value="direction", defaultValue = "ASC") String direction){
