@@ -110,6 +110,17 @@ public class AnuncioService {
 		}
 		return listAnuncios.stream().map(e -> new AnuncioDTO(e)).collect(Collectors.toList());
 	}
+	
+	
+	public Page<AnuncioDTO> anuncioTitulo(String palavra,Pageable pageable) {
+		Page<Anuncio> list;
+		if(palavra != "") {
+			list = repository.findAll(pageable);
+		}else {
+			list = repository.findByTitulo(palavra,pageable);
+		}
+		return list.map(e -> new AnuncioDTO(e));
+	}
 
 	private void updateData(Anuncio entity, AnuncioDTO dto) {
 		entity.setTitulo(dto.getTitulo());

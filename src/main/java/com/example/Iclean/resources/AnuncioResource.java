@@ -86,6 +86,19 @@ public class AnuncioResource {
 		List<AnuncioDTO> list = service.anuncioPalavraChave(palavra);
 		return ResponseEntity.ok().body(list); 
 	}
+	
+	@GetMapping(value = "/titulo/{palavra}")
+	public ResponseEntity<Page<AnuncioDTO>> anuncioTitulo(
+			@PathVariable("palavra") String palavra,
+			@RequestParam(value="page", defaultValue = "0") Integer page,
+			@RequestParam(value="linePerPage", defaultValue = "2") Integer linePerPage,
+			@RequestParam(value="status", defaultValue = "true") Boolean status,
+			@RequestParam(value="orderBy", defaultValue = "titulo") String orderBy,
+			@RequestParam(value="direction", defaultValue = "ASC") String direction){
+		PageRequest pageRequest = PageRequest.of(page, linePerPage, Direction.valueOf(direction), orderBy);
+		Page<AnuncioDTO> list = service.anuncioTitulo(palavra, pageRequest);
+		return ResponseEntity.ok().body(list); 
+	}
 
 	@PutMapping(value = "/{id}/alterarstatus")
 	public ResponseEntity<Void> updateStatus(@PathVariable Long id){

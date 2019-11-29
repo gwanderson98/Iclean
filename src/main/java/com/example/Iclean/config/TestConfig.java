@@ -94,6 +94,7 @@ public class TestConfig implements CommandLineRunner {
 		Anuncio anun1 = new Anuncio(null, "Carpintaria na promoção", "Todos os tipos de serviços de carpintaria ao seu alcance", 10.50, true, u1, esp1);
 		Anuncio anun2 = new Anuncio(null, "Montagem de Moveis na faixa", "Montagens em geral na metade de preço", 11.50, true, u1, esp1);
 		Anuncio anun3 = new Anuncio(null, "Montagem de Moveis na faixa", "Montagens em geral na metade de preço", 11.50, true, u2, esp1);
+		
 		//Palavras Chave
 		PalavraChave palChave1 = new PalavraChave(null, "madeira", anun1);
 		PalavraChave palChave2 = new PalavraChave(null, "moveis", anun2);
