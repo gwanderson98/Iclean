@@ -48,7 +48,8 @@ private static final Logger LOG = LoggerFactory.getLogger(AuthService.class);
 					dto.getSenha());
 			authenticationManager.authenticate(authToken);
 			String token = jwtUtil.generateToken(dto.getEmail());
-			return new TokenDTO(dto.getEmail(), token);
+			Long id = userRepository.findByEmail(dto.getEmail()).getId();
+			return new TokenDTO(id, dto.getEmail(), token);
 		} catch (AuthenticationException e) {
 			throw new JWTAuthenticationException("Bad credentials");
 		}

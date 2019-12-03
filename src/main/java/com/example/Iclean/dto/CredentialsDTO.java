@@ -8,6 +8,7 @@ public class CredentialsDTO implements Serializable {
 	
 	private String email;
 	private String senha;
+	private int id;
 
 	public CredentialsDTO() {
 		
@@ -16,6 +17,20 @@ public class CredentialsDTO implements Serializable {
 	public CredentialsDTO(String email, String senha) {	
 		this.email = email;
 		this.senha = senha;
+	}
+	
+	public CredentialsDTO(int id,String email, String senha) {
+		this.id = id;
+		this.email = email;
+		this.senha = senha;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getEmail() {

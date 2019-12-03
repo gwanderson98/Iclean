@@ -8,14 +8,29 @@ public class TokenDTO  implements Serializable {
 
 	private String email;
 	private String token;
+	private Long id;
 	
 	public TokenDTO() {
 		
 	}
 
-	public TokenDTO(String email, String token) {		
+	public TokenDTO(Long id, String email, String token) {	
+		this.id = id;
 		this.email = email;
 		this.token = token;
+	}
+	
+	public TokenDTO( String email, String token) {
+		this.email = email;
+		this.token = token;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getEmail() {
