@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.Iclean.dto.AnuncioDTO;
 import com.example.Iclean.entities.Anuncio;
 import com.example.Iclean.entities.PalavraChave;
+import com.example.Iclean.entities.Usuario;
 import com.example.Iclean.repositories.AnuncioRepository;
 import com.example.Iclean.repositories.PalavraChaveRepository;
 import com.example.Iclean.services.exceptions.DatabaseException;
@@ -59,7 +60,8 @@ public class AnuncioService {
 	}
 
 	public AnuncioDTO insert(AnuncioDTO dto) {
-		authService.validateSelf(dto.getUsuarioId());
+		Usuario usuario = authService.authenticated();
+		authService.validateSelf(usuario.getId());
 		Anuncio entity = dto.toEntity();
 		entity = repository.save(entity);
 		return new AnuncioDTO(entity);
@@ -130,7 +132,8 @@ public class AnuncioService {
 
 	@Transactional
 	public void alterarStatus(Long id) {
-		authService.validateSelfOrAdmin(id);
+		Usuario usuario = authService.authenticated();
+		authService.validateSelfOrAdmin(usuario.getId());
 		Anuncio entity = repository.getOne(id);
 		entity.setStatus(!entity.getStatus());
 		entity = repository.save(entity);
