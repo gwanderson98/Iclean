@@ -57,7 +57,6 @@ public class AnuncioResource {
 	
 	@PostMapping
 	public ResponseEntity<AnuncioDTO> insert(@RequestBody AnuncioDTO dto){
-		dto.setStatus(true);
 		AnuncioDTO newDTO = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newDTO.getId()).toUri();
