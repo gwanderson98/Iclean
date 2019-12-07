@@ -12,8 +12,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.Iclean.dto.EnderecoDTO;
 import com.example.Iclean.dto.OrdemServicoDTO;
+import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.entities.OrdemServico;
+import com.example.Iclean.entities.Usuario;
 import com.example.Iclean.entities.enums.StatusOrdemServico;
 import com.example.Iclean.repositories.OrdemServicoRepository;
 import com.example.Iclean.services.exceptions.DatabaseException;
@@ -148,5 +151,11 @@ public class OrdemServicoService {
 		entity.setId(dto.getId());
 		entity.setDataInclusao(dto.getDataInclusao());
 		entity.setStatus(dto.getStatus());
+	}
+
+	public List<OrdemServicoDTO> findByUsuario() {
+		Usuario client =  authService.authenticated();
+		List<OrdemServico> list = repository.findByCliente(client);
+		return list.stream().map(e -> new OrdemServicoDTO(e)).collect(Collectors.toList());
 	}
 }
