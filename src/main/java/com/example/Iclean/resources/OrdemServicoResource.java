@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.Iclean.dto.EnderecoDTO;
 import com.example.Iclean.dto.OrdemServicoDTO;
 import com.example.Iclean.entities.OrdemServico;
 import com.example.Iclean.services.OrdemServicoService;
@@ -92,5 +93,11 @@ public class OrdemServicoResource {
 	public ResponseEntity<OrdemServicoDTO> avaliarPrestador(@PathVariable Long id, @RequestBody int avaliacao){
 		OrdemServicoDTO dto = service.avaliarprestador(id, avaliacao);
 		return ResponseEntity.ok().body(dto);
+	}
+	
+	@GetMapping(value="/minhasOrdens")
+	public ResponseEntity<List<OrdemServicoDTO>> findByUsuario(){
+		List<OrdemServicoDTO> list = service.findByUsuario();
+		return ResponseEntity.ok().body(list);
 	}
 }
