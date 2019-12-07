@@ -129,5 +129,8 @@ public class TestConfig implements CommandLineRunner {
 		
 		usuarioRepository.saveAll(Arrays.asList(u1, u2));
 		
+		System.out.println("asdf");
+		System.out.println( Date.from(Instant.now()));
+		
 	}
 }

@@ -44,7 +44,11 @@ public class OrdemServicoService {
 	}
 
 	public OrdemServico insert(OrdemServico obj) {
-		return repository.save(obj);
+		Usuario client =  authService.authenticated();
+		if(client.getId() == obj.getCliente().getId()) {
+			return repository.save(obj);
+		}
+		return null;
 	}
 
 	public void delete(Long id) {
