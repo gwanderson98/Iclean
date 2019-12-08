@@ -1,5 +1,6 @@
 package com.example.Iclean.resources;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -22,7 +23,7 @@ import com.example.Iclean.services.AuthService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AnuncioResourceTest {
+public class EnderecosResourcesTest {
 
 	private MockMvc mockMvc;
 	private String path = "http://localhost:8080/enderecos";
@@ -85,6 +86,24 @@ public class AnuncioResourceTest {
 	    	      .contentType(MediaType.APPLICATION_JSON))
 	    	      	.andExpect(status().isNotFound());
 	    	}
+	
+	@Test
+	public void deleteEnderecoTest204() throws Exception {		
+	    mockMvc.perform(delete(path + "/2")
+	    		  .param("Authorization", "Bearer " + obtainAccessToken())
+	    	      .contentType(MediaType.APPLICATION_JSON))
+	    	      	.andExpect(status().isNoContent());
+	    	}
+	
+	@Test
+	public void deleteEnderecoTest404() throws Exception {		
+	    mockMvc.perform(delete(path + "/6")
+	    	      .contentType(MediaType.APPLICATION_JSON))
+	    	      	.andExpect(status().isNotFound());
+	    	}
+	
+	
+	
 	
 
 }
