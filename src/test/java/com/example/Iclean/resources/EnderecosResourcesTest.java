@@ -2,6 +2,7 @@ package com.example.Iclean.resources;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
@@ -61,15 +62,7 @@ public class EnderecosResourcesTest {
 	    		  .param("Authorization", "Bearer " + obtainAccessToken())
 	    	      .contentType(MediaType.APPLICATION_JSON))
 	    	      	.andExpect(status().isOk());
-	    	} 
-	
-	@Test
-	public void getEnderecoTest401() throws Exception {		
-	    mockMvc.perform(get(path + "/3")
-	    	      .contentType(MediaType.APPLICATION_JSON))
-	    	      	.andExpect(status().isUnauthorized());
-	    	}
-	
+	    	} 	
 	
 	@Test
 	public void getEnderecoTest403() throws Exception {		
@@ -103,6 +96,21 @@ public class EnderecosResourcesTest {
 	    	}
 	
 	
+	@Test
+	public void postEnderecoTest200() throws Exception {		
+	    mockMvc.perform(post(path + "/1")
+	    		  .param("Authorization", "Bearer " + obtainAccessToken())
+	    	      .contentType(MediaType.APPLICATION_JSON))
+	    	      	.andExpect(status().isOk());
+	    	} 
+	
+	@Test
+	public void postEnderecoTest403() throws Exception {		
+	    mockMvc.perform(post(path + "/2")
+	    		.param("Authorization", "Bearer " + obtainAccessToken())
+	    	      .contentType(MediaType.APPLICATION_JSON))
+	    	      	.andExpect(status().isForbidden());
+	    	}
 	
 	
 
