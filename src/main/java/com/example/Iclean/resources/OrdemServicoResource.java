@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.example.Iclean.dto.EnderecoDTO;
 import com.example.Iclean.dto.OrdemServicoDTO;
 import com.example.Iclean.entities.OrdemServico;
 import com.example.Iclean.services.OrdemServicoService;

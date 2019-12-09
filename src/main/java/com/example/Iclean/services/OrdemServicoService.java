@@ -12,9 +12,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.Iclean.dto.EnderecoDTO;
 import com.example.Iclean.dto.OrdemServicoDTO;
-import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.entities.OrdemServico;
 import com.example.Iclean.entities.Usuario;
 import com.example.Iclean.entities.enums.StatusOrdemServico;

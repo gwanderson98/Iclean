@@ -1,33 +1,34 @@
 package com.example.Iclean.resources;
 
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Optional;
-
-import org.h2.bnf.context.DbTableOrView;
-import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
+
+
 import com.example.Iclean.dto.CredentialsDTO;
+import com.example.Iclean.dto.EnderecoDTO;
 import com.example.Iclean.dto.TokenDTO;
-import com.example.Iclean.dto.UsuarioDTO;
-import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.entities.Usuario;
 import com.example.Iclean.repositories.UsuarioRepository;
 import com.example.Iclean.services.AuthService;
@@ -35,10 +36,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@ContextConfiguration
+@WebAppConfiguration
 public class EnderecosResourcesTest {
 
 	private MockMvc mockMvc;
 	private String path = "http://localhost:8080/enderecos";
+	private TokenDTO tokenDto;
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncode;
@@ -54,18 +58,25 @@ public class EnderecosResourcesTest {
 
 	@Before
 	public void setup() {
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context).build();
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(context)         
+         .build();
 	}
 
 	private String obtainAccessToken() throws Exception {
-
+		
 		CredentialsDTO cDto = new CredentialsDTO();
-
+		
 		cDto.setEmail("marcomala@gmail.com");
 		cDto.setSenha("senha321");
+				
+		tokenDto = authService.authenticate(cDto);
+		
+		Usuario usuario = usuarioRepository.findByEmail(cDto.getEmail());
+		
+		Authentication auth =  new UsernamePasswordAuthenticationToken(usuario, null);
 
-		TokenDTO tokenDto = authService.authenticate(cDto);
-
+		SecurityContextHolder.getContext().setAuthentication(auth);
+		
 		String resultString = tokenDto.getToken();
 
 		return resultString;
@@ -101,25 +112,21 @@ public class EnderecosResourcesTest {
 	}
 
 	@Test
-	public void postEnderecoTest200() throws Exception {
-		
-		Usuario ux = new Usuario(null, "Usuario X", "123456789", passwordEncode.encode("senha456"),
-				"usuario@gmail.com");
-		
+	public void postEnderecoTest201() throws Exception {		
 
-		mockMvc.perform(post(path).param("Authorization", "Bearer " + obtainAccessToken())
-				.content(asJsonString(
-						new Endereco(null, "Teste Post ", 300, "Bairro Teste", "Cidade Teste", "MG", "38400000", ux)))
-				.contentType(MediaType.APPLICATION_JSON))						        
+		mockMvc.perform(post(path).param("Authorization", "Bearer " + obtainAccessToken())								
+				.content(asJsonString(new EnderecoDTO(null, "Teste Post ", 300, "Bairro Teste", "Cidade Teste", "MG", "38400000", tokenDto.getId())))
+ 				.contentType(MediaType.APPLICATION_JSON))				
 				.andExpect(status().isCreated());
-		 
 		
 	}
 
 	@Test
 	public void postEnderecoTest403() throws Exception {
-		mockMvc.perform(post(path + "/2").param("Authorization", "Bearer " + obtainAccessToken())
-				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isForbidden());
+		mockMvc.perform(post(path).param("Authorization",  obtainAccessToken())								
+				.content(asJsonString(new EnderecoDTO(null, "Teste Post ", 300, "Bairro Teste", "Cidade Teste", "MG", "38400000", 5L)))
+ 				.contentType(MediaType.APPLICATION_JSON))				
+				.andExpect(status().isForbidden());
 	}
 
 	public static String asJsonString(final Object obj) {

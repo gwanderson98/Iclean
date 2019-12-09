@@ -8,7 +8,7 @@ public class CredentialsDTO implements Serializable {
 	
 	private String email;
 	private String senha;
-	private int id;
+	private Long id;
 
 	public CredentialsDTO() {
 		
@@ -19,17 +19,17 @@ public class CredentialsDTO implements Serializable {
 		this.senha = senha;
 	}
 	
-	public CredentialsDTO(int id,String email, String senha) {
+	public CredentialsDTO(Long id,String email, String senha) {
 		this.id = id;
 		this.email = email;
 		this.senha = senha;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
