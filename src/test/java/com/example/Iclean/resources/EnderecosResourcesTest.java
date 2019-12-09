@@ -137,4 +137,24 @@ public class EnderecosResourcesTest {
 		}
 	}
 
+	@Test
+	public void putEnderecoTest200() throws Exception {
+
+		mockMvc.perform(put(path + "/1").param("Authorization", "Bearer " + obtainAccessToken())
+				.content(asJsonString(
+						new Endereco(null, 450, "Bairro TestePut", "Cidade Put", )))
+				.contentType(MediaType.APPLICATION_JSON))						        
+				.andExpect(status().isUpdate());
+		 
+		
+	}
+
+	@Test
+	public void putEnderecoTest403() throws Exception {
+		mockMvc.perform(put(path + "/3").param("Authorization", "Bearer " + obtainAccessToken())
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isForbidden());
+	}
+
+	
+
 }
