@@ -1,10 +1,13 @@
 package com.example.Iclean.resources;
 
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +28,9 @@ import org.springframework.web.context.WebApplicationContext;
 import com.example.Iclean.dto.CredentialsDTO;
 import com.example.Iclean.dto.EnderecoDTO;
 import com.example.Iclean.dto.TokenDTO;
+import com.example.Iclean.entities.Endereco;
 import com.example.Iclean.entities.Usuario;
+import com.example.Iclean.repositories.EnderecoRepository;
 import com.example.Iclean.repositories.UsuarioRepository;
 import com.example.Iclean.services.AuthService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,10 +43,13 @@ public class EnderecosResourcesTest {
 
 	private MockMvc mockMvc;
 	private String path = "http://localhost:8080/enderecos";
-	private TokenDTO tokenDto;
-
+	private TokenDTO tokenDto;	
+	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	@Autowired
 	private WebApplicationContext context;
@@ -95,7 +103,10 @@ public class EnderecosResourcesTest {
 	@Test
 	public void deleteEnderecoTest204() throws Exception {
 		mockMvc.perform(delete(path + "/2").param("Authorization", "Bearer " + obtainAccessToken())
-				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNoContent());
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNoContent());	
+		
+		 //Verificando se o codigo 2 foi deletado
+		assertEquals(false, enderecoRepository.existsById(2L));
 	}
 
 	@Test
@@ -105,12 +116,16 @@ public class EnderecosResourcesTest {
 
 	@Test
 	public void postEnderecoTest201() throws Exception {
-
-		mockMvc.perform(post(path).param("Authorization", "Bearer " + obtainAccessToken())
-				.content(asJsonString(new EnderecoDTO(null, "Teste Post ", 300, "Bairro Teste", "Cidade Teste", "MG",
-						"38400000", tokenDto.getId())))
-				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
-
+		
+		
+	  mockMvc.perform(post(path).param("Authorization", "Bearer " + obtainAccessToken())
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(asJsonString(new EnderecoDTO(null, "Teste Post", 300, "Bairro Teste", "Cidade Teste", "MG",
+						"38400000", tokenDto.getId())))				
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());		
+		
+	    //Verificando se o codigo 4 foi criado
+		assertEquals(true, enderecoRepository.existsById(4L));		 
 	}
 
 	@Test
@@ -121,15 +136,7 @@ public class EnderecosResourcesTest {
 								"MG", "38400000", 5L)))
 						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isForbidden());
-	}
-
-	public static String asJsonString(final Object obj) {
-		try {
-			return new ObjectMapper().writeValueAsString(obj);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
+	}	
 
 	@Test
 	public void putEnderecoTest200() throws Exception {
@@ -138,7 +145,11 @@ public class EnderecosResourcesTest {
 						"38411068", tokenDto.getId())))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
-
+		
+		
+		//Verificando se o logradouro foi alterado
+		Optional<Endereco> endereco = enderecoRepository.findById(1L);
+		assertEquals("Logradouro Put", endereco.get().getLogradouro());		 
 	}
 
 	@Test
@@ -149,6 +160,14 @@ public class EnderecosResourcesTest {
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isForbidden());
 
+	}
+	
+	public static String asJsonString(final Object obj) {
+		try {
+			return new ObjectMapper().writeValueAsString(obj);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }
